@@ -1,0 +1,31 @@
+@startuml
+
+title UseCase_Diagram
+:ユーザー: as user
+
+rectangle システム {
+
+    (飲み物を販売する) as (sellDrink)
+    (お金を返却する) as (returnCharge)
+    (チケットを販売する) as (sellTicket)
+
+    left to right direction
+    user --> sellDrink
+    user --> returnCharge
+    user --> sellTicket
+
+
+    note right of sellDrink
+    UC01
+    end note
+
+    note right of returnCharge
+    UC02
+    end note
+
+    note right of sellTicket #Aquamarine
+    UC03
+    end note
+
+}
+@enduml
