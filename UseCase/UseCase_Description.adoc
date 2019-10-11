@@ -26,9 +26,7 @@
 == ユースケース図
 '''
 
-image::https://github.com/W-Nakayama-24/VendingMachine_CUI/blob/develop/UseCase/UseCase_Diagram.png?raw=true
-//pngでエクスポートしたUMLを予めアップロードして
-//URLターゲットを指定して参照
+image::https://github.com/W-Nakayama-24/VendingMachine_CUI/blob/develop/UseCase/UseCase_Diagram.png?raw=true[diagram]
 
 == ユースケース記述
 '''
