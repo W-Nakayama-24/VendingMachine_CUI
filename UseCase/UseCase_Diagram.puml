@@ -1,29 +1,30 @@
 @startuml
 
-title UseCase_Diagram
-:ユーザー: as user
+title 自販機システム_ユースケース図
+:利用者: as user
 
-rectangle システム {
+rectangle 自販機システム {
 
-    (飲み物を販売する) as (sellDrink)
-    (お金を返却する) as (returnCharge)
-    (チケットを販売する) as (sellTicket)
+    (お金を投入する) as (insertMoney)
+    (商品を購入する) as (buyProduct)
+    (返金を受け取る) as (receiveChange)
 
     left to right direction
-    user --> sellDrink
-    user --> returnCharge
-    user --> sellTicket
+    user --> insertMoney
+    user --> buyProduct
+    user --> receiveChange
 
 
-    note right of sellDrink
+    note right of insertMoney
     UC01
     end note
 
-    note right of returnCharge
+    note right of buyProduct
     UC02
     end note
 
-    note right of sellTicket #Aquamarine
+    
+    note right of receiveChange
     UC03
     end note
 
