@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <hr>
 <div class="paragraph">
-<p>この自販機システムは、コンソール上で数字および文字列の入力を受け付ける。<br>
+<p>この自販機システムは、コンソール上で数値および文字列の入力を受け付ける。<br>
 自販機システムが実現する基本的な機能は以下の通りである。</p>
 </div>
 <div class="exampleblock">
@@ -476,13 +476,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>規定された数字の入力を「投入金額」としてシステム上に保持する。</p>
+<p>規定された数値の入力を「投入金額」としてシステム上に加算する</p>
 </li>
 <li>
-<p>入力された商品名に応じて商品(飲み物)を提供し、商品の単価分だけ投入金額を減らす。</p>
+<p>入力された商品名に応じて商品(飲み物)を提供し、商品の単価分だけ投入金額を減らす</p>
 </li>
 <li>
-<p>ユーザーが「返金を受け取る」機能を文字列入力で呼び出した場合、残っている投入金額を返却する</p>
+<p>システム上に残っている投入金額を返却する</p>
 </li>
 </ol>
 </div>
@@ -579,10 +579,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>自販機システムの実行ファイルを指定してプログラムを実行する</p>
+<p>利用者は自販機システムの実行ファイルを指定してプログラムを実行する</p>
 </li>
 <li>
 <p>初期画面が表示される。</p>
+</li>
+<li>
+<p>利用者は1,2,3のいずれかを入力する。</p>
+</li>
+<li>
+<p>自販機システムは入力された数字に対応したユースケースの機能を始動する</p>
 </li>
 <li>
 <p>シナリオを終了する。</p>
@@ -628,13 +634,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 ● サイコソーダ / 150円 / 残り5本
 ● ミックスオレ / 160円 / 残り0本
 
-
 投入金額 [   0]円
 
 
-1000, 500, 100, 50, 10 : お金を投入する
-商品名を入力            : 商品を購入する
-[R]キーを入力           : お金の返却</pre>
+機能を選択してください
+[1] お金を投入する
+[2] 商品を購入する
+[3] 返金を受け取る</pre>
 </div>
 </div></div></td>
 </tr>
@@ -670,7 +676,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>概要</strong></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>利用者がコンソールで入力した金額を自販機システムの残高に加算する。</p>
+<p>利用者がコンソールで数値を入力すると、自販機システムは「投入金額」としてシステム上に加算する。</p>
 </div></div></td>
 </tr>
 <tr>
@@ -694,7 +700,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>トリガー</strong></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>コンソール上で 1000, 500, 100, 50, 10 のいずれかを入力する</p>
+<p>コンソール上で「1」を入力する</p>
 </div></div></td>
 </tr>
 <tr>
@@ -712,16 +718,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>利用者はコンソール上で 1000, 500, 100, 50, 10 のいずれかを入力する。</p>
+<p>利用者はコンソール上で「1」を入力する</p>
 </li>
 <li>
-<p>自販機システムは入力された金額を残高に加算する。</p>
+<p>自販機システムはシステムメッセージ01を表示し、数値の入力を受け付ける</p>
 </li>
 <li>
-<p>自販機システムは加算後の残高を初期画面に表示する</p>
+<p>利用者はコンソール上で 1000, 500, 100, 50, 10 のいずれかを入力する</p>
 </li>
 <li>
-<p>シナリオを終了する。</p>
+<p>自販機システムは入力された数値を投入金額に加算する</p>
+</li>
+<li>
+<p>自販機システムは加算後の投入金額を初期画面で表示する</p>
+</li>
+<li>
+<p>シナリオを終了する</p>
 </li>
 </ol>
 </div></div></td>
@@ -733,7 +745,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>コンソールの入力内容が 1000, 500, 100, 50, 10 以外の数字だった場合</p>
+<p>コンソールの入力内容が 1000, 500, 100, 50, 10 以外の数値だった場合</p>
 <div class="ulist">
 <ul>
 <li>
@@ -766,54 +778,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>補足</strong></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>(例)基本フロー: 1000 を入力する場合</p>
+<p>システムメッセージ01</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>利用者がコンソール上で 1000 を入力する</p>
 <div class="literalblock">
 <div class="content">
-<pre>   商品名     / 価格   / 在庫
-● おいしい水   / 100円 / 残り12本
-● サイコソーダ / 150円 / 残り5本
-● ミックスオレ / 160円 / 残り0本
-
-
-投入金額 [   0]円
-
-
-1000, 500, 100, 50, 10 : お金を投入する
-商品名を入力            : 商品を購入する
-[R]キーを入力           : お金の返却
-
-&gt; 1000</pre>
+<pre>---[1]お金を投入する---
+1000,500,100,50,10 のいずれかを入力してください</pre>
 </div>
-</div>
-</li>
-<li>
-<p>自販機システムは入力された金額を残高に加算する。</p>
-</li>
-<li>
-<p>自販機システムは加算後の残高を初期画面に表示する</p>
-<div class="literalblock">
-<div class="content">
-<pre>   商品名     / 価格   / 在庫
-● おいしい水   / 100円 / 残り12本
-● サイコソーダ / 150円 / 残り5本
-● ミックスオレ / 160円 / 残り0本
-
-
-投入金額 [1000]円
-
-
-1000, 500, 100, 50, 10 : お金を投入する
-商品名を入力            : 商品を購入する
-[R]キーを入力           : お金の返却</pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p>エラーメッセージ01</p>
@@ -821,7 +792,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="literalblock">
 <div class="content">
 <pre>ERROR_01:投入金額が正しくありません
-1000, 500, 100, 50, 10 のいずれかを入力してください</pre>
+1000,500,100,50,10 のいずれかを入力してください</pre>
 </div>
 </div></div></td>
 </tr>
@@ -859,7 +830,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>利用者がコンソールで商品名を入力すると、
 自販機システムは対応する商品の在庫を減らし、
-購入完了を示すシステムメッセージ00を表示する</p>
+購入完了を示すシステムメッセージ03をコンソールに表示する</p>
 </div></div></td>
 </tr>
 <tr>
@@ -883,7 +854,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>トリガー</strong></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>コンソール上で商品名を入力する</p>
+<p>コンソール上で「2」を入力する</p>
 </div></div></td>
 </tr>
 <tr>
@@ -901,16 +872,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>利用者はコンソール上で商品名を入力する。</p>
+<p>利用者はコンソール上で「2」を入力する</p>
 </li>
 <li>
-<p>自販機システムは入力に対応した商品の在庫を1減らす。</p>
+<p>自販機システムはシステムメッセージ02を表示し、文字列入力を受け付ける</p>
 </li>
 <li>
-<p>自販機システムは入力に対応した商品の単価分だけ投入金額を減らす。</p>
+<p>利用者は商品名を入力する</p>
 </li>
 <li>
-<p>購入完了を示すシステムメッセージ01を表示する</p>
+<p>自販機システムは入力に対応した商品の在庫を1減らす</p>
+</li>
+<li>
+<p>自販機システムは入力に対応した商品の単価分だけ投入金額を減らす</p>
+</li>
+<li>
+<p>購入完了を示すシステムメッセージ03をコンソールに表示する</p>
 </li>
 </ol>
 </div></div></td>
@@ -922,7 +899,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>コンソールの入力内容が存在しない商品名など、不適切な文字列だった場合</p>
+<p>コンソールの入力内容が自販機システム内の商品と対応しない文字列,または空文字列の場合</p>
 <div class="ulist">
 <ul>
 <li>
@@ -975,13 +952,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>補足</strong></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>システムメッセージ01は以下の通りである</p>
+<p>システムメッセージ02</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>---[2]商品を購入する---
+商品名を入力してください</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>システムメッセージ03</p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>--お買い上げありがとうございます--
-[商品名]を購入しました
-お釣りの取り忘れにご注意ください([R]キーを入力:お金の返却)</pre>
+[入力内容と対応した商品]を購入しました</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -999,7 +984,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="literalblock">
 <div class="content">
 <pre>ERROR_03:投入金額が不足しています
-お金を追加してください(1000, 500, 100, 50, 10)</pre>
+お金を投入してください</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1043,10 +1028,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>概要</strong></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>利用者がコンソールで「R」を入力すると、
-自販機システムは入力時点で投入されている金額を
-返却したことを示すシステムメッセージ00を表示し、
-初期画面に表示されている投入金額は0円に戻る</p>
+<p>利用者がコンソールで「3」を入力すると、
+自販機システムは入力時点で投入されている金額を返却する</p>
 </div></div></td>
 </tr>
 <tr>
@@ -1070,7 +1053,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>トリガー</strong></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>コンソール上で「R」を入力する</p>
+<p>コンソール上で「3」を入力する</p>
 </div></div></td>
 </tr>
 <tr>
@@ -1088,10 +1071,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>利用者はコンソール上で「R」を入力する。</p>
+<p>利用者はコンソール上で「3」を入力する</p>
 </li>
 <li>
-<p>自販機システムは入力時点で投入されている金額を含めたシステムメッセージ02を表示する。</p>
+<p>自販機システムは入力時点で投入されている金額を含めたシステムメッセージ04をコンソールに表示する</p>
 </li>
 <li>
 <p>自販機システムは初期画面に表示されている投入金額を0円に戻す</p>
@@ -1106,7 +1089,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>投入金額が0円のときにコンソール上で「R」の入力があった場合</p>
+<p>投入金額が0円のときにコンソール上で「3」の入力があった場合</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1139,11 +1122,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><strong>補足</strong></p>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>システムメッセージ02は以下の通りである</p>
+<p>システムメッセージ04</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>[入力時点の投入金額]円を返却しました</pre>
+<pre>---[3]返金を受け取る---
+[入力時点の投入金額]円を返却しました</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1165,7 +1149,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 0.2<br>
-Last updated 2019-10-16 16:53:34 +0900
+Last updated 2019-10-17 14:11:56 +0900
 </div>
 </div>
 </body>
