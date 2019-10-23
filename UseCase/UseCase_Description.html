@@ -443,8 +443,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>自販機システム-機能仕様</h1>
 <div class="details">
 <span id="author" class="author">Nakayama</span><br>
-<span id="revnumber">version 0.2,</span>
-<span id="revdate">2019/10/16</span>
+<span id="revnumber">version 0.3,</span>
+<span id="revdate">2019/10/23</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">目次</div>
@@ -453,7 +453,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_自販機システムのユースケース">2. 自販機システムのユースケース</a></li>
 <li><a href="#_機能詳細">3. 機能詳細</a>
 <ul class="sectlevel2">
-<li><a href="#_システム始動">3.1. システム始動</a></li>
+<li><a href="#_システム始動">3.1. システム始動</a>
+<ul class="sectlevel3">
+<li><a href="#first_display">3.1.1. 初期画面</a></li>
+</ul>
+</li>
 <li><a href="#_お金を投入する">3.2. お金を投入する</a></li>
 <li><a href="#_商品を購入する">3.3. 商品を購入する</a></li>
 <li><a href="#_返金を受け取る">3.4. 返金を受け取る</a></li>
@@ -468,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <hr>
 <div class="paragraph">
-<p>この自販機システムは、コンソール上で数値および文字列の入力を受け付ける。<br>
+<p>この自販機システムは、コンソール上で数字の入力を受け付ける。<br>
 自販機システムが実現する基本的な機能は以下の通りである。</p>
 </div>
 <div class="exampleblock">
@@ -476,10 +480,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>規定された数値の入力を「投入金額」としてシステム上に加算する</p>
+<p>規定された数字の入力を「投入金額」としてシステム上に加算する</p>
 </li>
 <li>
-<p>入力された商品名に応じて商品(飲み物)を提供し、商品の単価分だけ投入金額を減らす</p>
+<p>入力された商品番号に応じて商品(飲み物)を提供し、商品の単価分だけ投入金額を減らす</p>
 </li>
 <li>
 <p>システム上に残っている投入金額を返却する</p>
@@ -517,78 +521,56 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>ユースケースID</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">ユースケースID</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>該当なし (CUIが実現する機能である為、ユースケースに含めない)</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>ユースケース名称</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">機能名称</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>システム始動</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">概要</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>概要</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>初期画面の表示</p>
+<p><a href="#first_display">初期画面</a>の表示</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>優先度</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">優先度</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>-</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>アクター</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">アクター</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>利用者</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>トリガー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">トリガー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>自販機システムの実行ファイルを指定・実行</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>事前条件</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">事前条件</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>なし</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>基本フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">基本フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>利用者は自販機システムの実行ファイルを指定してプログラムを実行する</p>
 </li>
 <li>
-<p>初期画面が表示される。</p>
-</li>
-<li>
-<p>利用者は1,2,3のいずれかを入力する。</p>
-</li>
-<li>
-<p>自販機システムは入力された数字に対応したユースケースの機能を始動する</p>
+<p><a href="#first_display">初期画面</a>が表示される。</p>
 </li>
 <li>
 <p>シナリオを終了する。</p>
@@ -597,42 +579,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>代替フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">代替フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>なし</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>例外フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">例外フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>なし</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">事後条件</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>事後条件</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>初期画面が表示されている</p>
+<p><a href="#first_display">初期画面</a>が表示されている</p>
 </div></div></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>補足</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="first_display"><a class="link" href="#first_display">3.1.1. 初期画面</a></h4>
+<div class="paragraph">
 <p>初期画面のイメージは以下の通りである</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>   商品名     / 価格   / 在庫
-● おいしい水   / 100円 / 残り12本
-● サイコソーダ / 150円 / 残り5本
-● ミックスオレ / 160円 / 残り0本
+<pre>商品番号 / 商品名 / 価格   / 在庫
+1 / おいしい水   / 100円 / 残り12本
+2 / サイコソーダ / 150円 / 残り5本
+3 / ミックスオレ / 160円 / 残り0本
 
 投入金額 [   0]円
 
@@ -642,10 +618,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 [2] 商品を購入する
 [3] 返金を受け取る</pre>
 </div>
-</div></div></td>
-</tr>
-</tbody>
-</table>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_お金を投入する"><a class="link" href="#_お金を投入する">3.2. お金を投入する</a></h3>
@@ -656,65 +630,49 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>ユースケースID</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">ユースケースID</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>UC01</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>ユースケース名称</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">ユースケース名称</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>お金を投入する</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>概要</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">概要</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>利用者がコンソールで数値を入力すると、自販機システムは「投入金額」としてシステム上に加算する。</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>優先度</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">優先度</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>MUST</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>アクター</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">アクター</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>利用者</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>トリガー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">トリガー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>コンソール上で「1」を入力する</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">事前条件</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>事前条件</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>初期画面がコンソールに表示されている</p>
+<p><a href="#first_display">初期画面</a>がコンソールに表示されている</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>基本フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">基本フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -725,12 +683,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>利用者はコンソール上で 1000, 500, 100, 50, 10 のいずれかを入力する</p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="red">入力内容が1000, 500, 100, 50, 10 以外の数値だった場合</span> ⇒ <a href="#alt_uc01">代替フローに移行</a></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>自販機システムは入力された数値を投入金額に加算する</p>
 </li>
 <li>
-<p>自販機システムは加算後の投入金額を初期画面で表示する</p>
+<p>自販機システムは加算後の投入金額を<a href="#first_display">初期画面</a>で表示する</p>
 </li>
 <li>
 <p>シナリオを終了する</p>
@@ -739,10 +704,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>代替フロー</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
+<th class="tableblock halign-left valign-top"><p class="tableblock">代替フロー</p></th>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="alt_uc01" class="olist arabic">
 <ol class="arabic">
 <li>
 <p>コンソールの入力内容が 1000, 500, 100, 50, 10 以外の数値だった場合</p>
@@ -758,25 +721,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>例外フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">例外フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>なし</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">事後条件</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>事後条件</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>初期画面が表示されている</p>
+<p><a href="#first_display">初期画面</a>が表示されている</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>補足</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">補足</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>システムメッセージ01</p>
 </div>
@@ -808,77 +765,75 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>ユースケースID</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">ユースケースID</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>UC02</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>ユースケース名称</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">ユースケース名称</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>商品を購入する</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">概要</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>概要</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>利用者がコンソールで商品名を入力すると、
+<p>利用者がコンソールで商品番号を入力すると、
 自販機システムは対応する商品の在庫を減らし、
 購入完了を示すシステムメッセージ03をコンソールに表示する</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>優先度</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">優先度</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>MUST</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>アクター</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">アクター</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>利用者</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>トリガー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">トリガー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>コンソール上で「2」を入力する</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">事前条件</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>事前条件</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>初期画面がコンソールに表示されている</p>
+<p><a href="#first_display">初期画面</a>がコンソールに表示されている</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>基本フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">基本フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>利用者はコンソール上で「2」を入力する</p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="red">すべての商品の在庫が無い場合</span>　⇒ <a href="#alt_uc02">代替フローに移行</a></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>自販機システムはシステムメッセージ02を表示し、文字列入力を受け付ける</p>
+<p>自販機システムはシステムメッセージ02を表示し、再度数字の入力を受け付ける</p>
 </li>
 <li>
-<p>利用者は商品名を入力する</p>
+<p>利用者は商品番号を入力する</p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="red">入力した商品番号が正しくない場合/投入金額が足りない場合/入力に対応する商品の在庫が無い場合</span> ⇒ <a href="#alt_uc02">代替フローに移行</a></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>自販機システムは入力に対応した商品の在庫を1減らす</p>
@@ -893,13 +848,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>代替フロー</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
+<th class="tableblock halign-left valign-top"><p class="tableblock">代替フロー</p></th>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="alt_uc02" class="olist arabic">
 <ol class="arabic">
 <li>
-<p>コンソールの入力内容が自販機システム内の商品と対応しない文字列,または空文字列の場合</p>
+<p>すべての商品の在庫が「残り0本」であった場合</p>
 <div class="ulist">
 <ul>
 <li>
@@ -909,7 +862,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>入力された商品名に対応する商品の値段が、入力時点での投入金額を上回っている場合</p>
+<p>コンソールの入力内容が自販機システム内の商品と対応しない番号,または空文字列の場合</p>
 <div class="ulist">
 <ul>
 <li>
@@ -919,7 +872,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>入力された商品名に対応する商品の在庫が「残り0本」であった場合</p>
+<p>入力された商品番号に対応する商品の値段が、入力時点での投入金額を上回っている場合</p>
 <div class="ulist">
 <ul>
 <li>
@@ -928,36 +881,43 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </li>
+<li>
+<p>入力された商品番号に対応する商品の在庫が「残り0本」であった場合</p>
+<div class="ulist">
+<ul>
+<li>
+<p>エラーメッセージ05をコンソールに表示する</p>
+</li>
+</ul>
+</div>
+</li>
 </ol>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>例外フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">例外フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>なし</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">事後条件</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>事後条件</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>初期画面が表示されている</p>
+<p><a href="#first_display">初期画面</a>が表示されている</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>補足</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">補足</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>システムメッセージ02</p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>---[2]商品を購入する---
-商品名を入力してください</pre>
+商品番号を入力してください
+1.おいしい水
+2.サイコソーダ
+3.ミックスオレ</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -974,8 +934,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>ERROR_02:存在しない商品名です
-正しく入力してください</pre>
+<pre>ERROR_02:すべての商品が売り切れています</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -983,8 +942,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>ERROR_03:投入金額が不足しています
-お金を投入してください</pre>
+<pre>ERROR_03:存在しない商品名です
+正しく入力してください</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -992,7 +951,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>ERROR_04:ご指定の商品は売り切れています</pre>
+<pre>ERROR_04:投入金額が不足しています
+お金を投入してください</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>エラーメッセージ05</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>ERROR_05:ご指定の商品は売り切れています</pre>
 </div>
 </div></div></td>
 </tr>
@@ -1008,92 +976,81 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>ユースケースID</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">ユースケースID</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>UC03</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>ユースケース名称</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">ユースケース名称</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>返金を受け取る</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>概要</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">概要</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>利用者がコンソールで「3」を入力すると、
 自販機システムは入力時点で投入されている金額を返却する</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>優先度</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">優先度</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>MUST</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>アクター</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">アクター</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>利用者</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>トリガー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">トリガー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>コンソール上で「3」を入力する</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">事前条件</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>事前条件</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>初期画面がコンソールに表示されている</p>
+<p><a href="#first_display">初期画面</a>がコンソールに表示されている</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>基本フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">基本フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>利用者はコンソール上で「3」を入力する</p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="red">投入金額が0円のときに入力した場合</span> ⇒ <a href="#alt_uc03">代替フローに移行</a></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>自販機システムは入力時点で投入されている金額を含めたシステムメッセージ04をコンソールに表示する</p>
 </li>
 <li>
-<p>自販機システムは初期画面に表示されている投入金額を0円に戻す</p>
+<p>自販機システムは<a href="#first_display">初期画面</a>に表示されている投入金額を0円に戻す</p>
 </li>
 </ol>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>代替フロー</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
+<th class="tableblock halign-left valign-top"><p class="tableblock">代替フロー</p></th>
+<td class="tableblock halign-left valign-top"><div class="content"><div id="alt_uc03" class="olist arabic">
 <ol class="arabic">
 <li>
 <p>投入金額が0円のときにコンソール上で「3」の入力があった場合</p>
 <div class="ulist">
 <ul>
 <li>
-<p>エラーメッセージ05をコンソールに表示する</p>
+<p>エラーメッセージ06をコンソールに表示する</p>
 </li>
 </ul>
 </div>
@@ -1102,25 +1059,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>例外フロー</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">例外フロー</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>なし</p>
 </div></div></td>
 </tr>
 <tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">事後条件</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>事後条件</strong></p>
-</div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>初期画面が表示されている</p>
+<p><a href="#first_display">初期画面</a>が表示されている</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><strong>補足</strong></p>
-</div></div></td>
+<th class="tableblock halign-left valign-top"><p class="tableblock">補足</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
 <p>システムメッセージ04</p>
 </div>
@@ -1131,11 +1082,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="paragraph">
-<p>エラーメッセージ05</p>
+<p>エラーメッセージ06</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>ERROR_05:返却できるお金がありません
+<pre>ERROR_06:返却できるお金がありません
 お金を追加してください(1000, 500, 100, 50, 10)</pre>
 </div>
 </div></div></td>
@@ -1148,8 +1099,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.2<br>
-Last updated 2019-10-17 14:11:56 +0900
+Version 0.3<br>
+Last updated 2019-10-23 12:23:22 +0900
 </div>
 </div>
 </body>
