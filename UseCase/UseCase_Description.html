@@ -606,7 +606,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>商品番号 / 商品名 / 価格   / 在庫
+<pre>商品番号 / 商品名 / 単価   / 在庫
 1 / おいしい水   / 100円 / 残り12本
 2 / サイコソーダ / 150円 / 残り5本
 3 / ミックスオレ / 160円 / 残り0本
@@ -711,7 +711,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">概要</p></th>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>利用者がコンソールで数値を入力すると、自販機システムは「投入金額」としてシステム上に加算する。</p>
+<p>利用者がコンソールで数字を入力すると、自販機システムは「投入金額」としてシステム上に加算する。</p>
 </div></div></td>
 </tr>
 <tr>
@@ -746,14 +746,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>利用者はコンソール上で「1」を入力する</p>
 </li>
 <li>
-<p>自販機システムはシステムメッセージ01を表示し、数値の入力を受け付ける</p>
+<p>自販機システムはシステムメッセージ01を表示し、数字の入力を受け付ける</p>
 </li>
 <li>
 <p>利用者はコンソール上で 1000, 500, 100, 50, 10 のいずれかを入力する</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="red">入力内容が1000, 500, 100, 50, 10 以外の数値だった場合</span> ⇒ <a href="#alt_uc01">代替フロー1に移行</a></p>
+<p><span class="red">1000, 500, 100, 50, 10 以外を入力した場合</span> ⇒ <a href="#alt_uc01">代替フロー1に移行</a></p>
 </li>
 </ul>
 </div>
@@ -775,14 +775,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div id="alt_uc01" class="olist arabic">
 <ol class="arabic">
 <li>
-<p>コンソールの入力内容が 1000, 500, 100, 50, 10 以外の数値だった場合</p>
+<p>1000, 500, 100, 50, 10 以外を入力した場合</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>エラーメッセージ01をコンソールに表示する</p>
 </li>
 <li>
-<p>基本フローのステップ6に移動する(シナリオを終了する)</p>
+<p>基本フローのステップ2に移動し、再度数字の入力を受け付ける</p>
 </li>
 </ol>
 </div>
@@ -894,7 +894,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>自販機システムはシステムメッセージ02を表示し、再度数字の入力を受け付ける</p>
+<p>自販機システムはシステムメッセージ02を表示し、数字の入力を受け付ける</p>
 </li>
 <li>
 <p>利用者は商品番号を入力する</p>
@@ -945,7 +945,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>コンソールの入力内容が自販機システム内の商品と対応しない番号,または空文字列の場合</p>
+<p>コンソールの入力内容が自販機システム内の商品と対応しない番号,文字列,または空文字列の場合</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -958,7 +958,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>入力された商品番号に対応する商品の値段が、入力時点での投入金額を上回っている場合</p>
+<p>入力された商品番号に対応する商品の単価が、入力時点での投入金額を上回っている場合</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -1034,7 +1034,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>ERROR_03:存在しない商品名です
+<pre>ERROR_03:存在しない商品番号です
 正しく入力してください</pre>
 </div>
 </div>
@@ -1250,6 +1250,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ol class="arabic">
 <li>
 <p>利用者はコンソール上で「9」を入力する</p>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="red">入力時点で投入金額が0円より大きい場合</span> ⇒ <a href="#ex_systemEnd">例外フロー1に移行</a></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>自販機システムが終了する (プログラムが終了する)</p>
@@ -1268,8 +1275,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">例外フロー</p></th>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>なし</p>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>入力時点で投入金額が0円より大きい場合</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>エラーメッセージ07をコンソールに表示する</p>
+</li>
+<li>
+<p>プログラムを終了せず、<a href="#first_display">初期画面</a>を表示する</p>
+</li>
+<li>
+<p>シナリオを終了する</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div></div></td>
 </tr>
 <tr>
@@ -1283,12 +1307,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p>自販機システム上に残った「投入金額」の数値は、0にリセットされる。</p>
-</li>
-<li>
 <p>自販機システム上の各「商品」の「在庫」は、いずれもシステム始動時と同じ状態にリセットされる。</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>エラーメッセージ07</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>ERROR_07 システムに投入金額が残っています
+(3を入力して投入金額を返却します)</pre>
+</div>
 </div></div></td>
 </tr>
 </tbody>
@@ -1300,7 +1330,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 0.3<br>
-Last updated 2019-10-23 16:36:38 +0900
+Last updated 2019-10-24 10:35:11 +0900
 </div>
 </div>
 </body>
