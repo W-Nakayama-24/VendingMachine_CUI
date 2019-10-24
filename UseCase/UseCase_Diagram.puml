@@ -1,0 +1,32 @@
+@startuml
+
+title 自販機システム_ユースケース図
+:利用者: as user
+
+rectangle 自販機システム {
+
+    (お金を投入する) as (insertMoney)
+    (商品を購入する) as (buyProduct)
+    (返金を受け取る) as (receiveChange)
+
+    left to right direction
+    user --> insertMoney
+    user --> buyProduct
+    user --> receiveChange
+
+
+    note right of insertMoney
+    UC01
+    end note
+
+    note right of buyProduct
+    UC02
+    end note
+
+    
+    note right of receiveChange
+    UC03
+    end note
+
+}
+@enduml
