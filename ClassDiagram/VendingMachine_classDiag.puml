@@ -1,0 +1,45 @@
+@startuml
+title 自販機システム_クラス図
+
+システム始動 ..> 自動販売機
+自動販売機 ..> お金の投入
+自動販売機 ..> 商品の購入
+自動販売機 ..> 返金の受取
+自動販売機 ..> システム終了
+
+class システム始動 {
+    +void main(args: String[])
+}
+
+note right of システム始動
+mainメソッドで
+自動販売機のインスタンスを生成する。
+end note
+ 
+class 自動販売機 {
+    -int 機能番号
+    +int 投入金額
+    +product 商品
+    
+    +void 初期画面を表示する()
+    +void 機能を呼び出す()
+}
+
+class お金の投入 {
+    - int 入力数値
+
+    +int お金を加算する(int: 投入金額)
+}
+
+class 商品の購入 {
+
+}
+
+class 返金の受取 {
+
+}
+
+class システム終了 {
+
+}
+@enduml
