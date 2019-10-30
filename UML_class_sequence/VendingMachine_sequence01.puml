@@ -1,0 +1,46 @@
+@startuml
+title 自販機システム_UC01お金を投入する
+
+actor 利用者
+利用者 -> Main : システム実行
+
+participant Main
+
+Main -> 自販機 : new
+activate 自販機
+
+
+
+loop
+    利用者 <- 自販機 : 初期画面を見せる
+
+    利用者 <- functionCaller : 数字を入力させる
+    activate functionCaller
+    利用者 -> functionCaller : 1を入力 (お金投入機能を選択)
+    自販機 <- functionCaller : 機能を呼び出す (お金投入機能)
+    deactivate functionCaller
+
+    loop 
+    利用者 <- 自販機 : 数字を入力させる(投入予定金額)
+    
+        alt 正しい入力
+        利用者 -> 自販機 : 1000,500,100,50,10のいずれかを入力
+        自販機 <- 自販機 : 上限を超えないか計算
+
+            break 9990を超えない
+            自販機 <- 自販機 : 投入金額に加算 
+            利用者 <- 自販機 : 加算後の初期画面を見せる break;
+
+            else 9990円を超える
+            利用者 <- 自販機 : エラーメッセージ02を見せる break;
+
+            end
+
+        else 不正な入力
+        利用者 -> 自販機 : 不正な入力
+        利用者 <- 自販機 : エラーメッセージ01を見せる
+        end
+    end    
+end
+
+@enduml
