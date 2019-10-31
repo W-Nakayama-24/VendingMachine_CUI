@@ -9,38 +9,90 @@ participant Main
 Main -> 自販機 : new
 activate 自販機
 
+loop 機能選択
+    Main -> 自販機 : 自販機.初期画面を表示する()
+    自販機 <- 自販機 : 初期画面を表示する
+
+    note right of 自販機
+    商品番号 / 商品名 / 単価  / 在庫
+    1 / おいしい水   / 100円 / 残り12本
+    2 / サイコソーダ / 150円 / 残り5本
+    3 / ミックスオレ / 160円 / 残り0本
+
+    投入金額 [   0]円
 
 
-loop
-    利用者 <- 自販機 : 初期画面を見せる
+    機能を選択してください
+    [1] お金を投入する
+    [2] 商品を購入する
+    [3] 返金を受け取る
+    [9] システムを終了する
+    end note
 
-    利用者 <- functionCaller : 数字を入力させる
+    自販機 -> functionCaller : new
     activate functionCaller
-    利用者 -> functionCaller : 1を入力 (お金投入機能を選択)
-    自販機 <- functionCaller : 機能を呼び出す (お金投入機能)
+    自販機 -> functionCaller : functionCaller.機能を選択する()
+    functionCaller -> functionCaller : 数字(機能番号)の入力を受け付ける
+    利用者 -> functionCaller : 1を入力 (UC01「お金を投入する」機能を選択)
+    自販機 <- functionCaller : 自販機.お金を投入する()
     deactivate functionCaller
+    deactivate 自販機
 
-    loop 
-    利用者 <- 自販機 : 数字を入力させる(投入予定金額)
+    loop UC01_お金を投入する
     
+
+    自販機 <- 自販機 : システムメッセージ01※を表示
+    
+    note right of 自販機
+    ※[1]お金を投入する
+    1000,500,100,50,10 のいずれかを入力してください
+    end note
+
+    利用者 -> 自販機 : 数字(投入したい金額)を入力させる
+    自販機 -> 投入金額マネージャ : new
+    activate 投入金額マネージャ
+
         alt 正しい入力
         利用者 -> 自販機 : 1000,500,100,50,10のいずれかを入力
-        自販機 <- 自販機 : 上限を超えないか計算
+        自販機 -> 投入金額マネージャ : 投入金額マネージャ.上限チェック()
+        自販機 <- 投入金額マネージャ : true:9990円を超えない / false:9990円を超える
 
-            break 9990を超えない
-            自販機 <- 自販機 : 投入金額に加算 
-            利用者 <- 自販機 : 加算後の初期画面を見せる break;
+            break true_9990円を超えない
+            自販機 -> 投入金額マネージャ : 投入金額マネージャ.投入金額に加算する()
+            自販機 <- 投入金額マネージャ : 加算後の投入金額をリターン    
 
-            else 9990円を超える
-            利用者 <- 自販機 : エラーメッセージ02を見せる break;
+            note left of 自販機
+            loop [UC01_お金を投入する] を抜ける
+            end note
+
+            else false_9990円を超える
+            利用者 <- 自販機 : エラーメッセージ02※を表示
+            
+            note left of 自販機
+            ※ERROR_02
+            投入できる金額の上限は9990円です
+            end note
+
+            note left of 自販機
+            loop [UC01_お金を投入する] を抜ける
+            end note
 
             end
 
         else 不正な入力
         利用者 -> 自販機 : 不正な入力
-        利用者 <- 自販機 : エラーメッセージ01を見せる
+        利用者 <- 自販機 : エラーメッセージ01※を表示
+        
+        note left of 自販機
+        ※ERROR_01
+        投入金額が正しくありません
+        end note
+
         end
+    deactivate 投入金額マネージャ
     end    
+    
 end
+
 
 @enduml
