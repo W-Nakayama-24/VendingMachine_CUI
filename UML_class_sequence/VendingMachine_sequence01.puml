@@ -2,21 +2,15 @@
 title 自販機システム_UC01お金を投入する
 
 actor 利用者
-利用者 -> Main : システム実行
 
-participant Main
-
-Main -> UserInterface : new
 activate UserInterface
-Main -> 自動販売機 : new
-activate 自動販売機
 
 note over UserInterface #Cyan
 [初期画面の表示]
 end note
-UserInterface -> 自動販売機 : get投入金額()
-UserInterface <-- 自動販売機 : 現在の投入金額
-
+UserInterface -> 自動販売機 : 自動販売機.get投入金額()
+activate 自動販売機
+deactivate 自動販売機
 UserInterface <- UserInterface : 初期画面を表示する()
     note over UserInterface
     商品番号 / 商品名 / 単価  / 在庫
@@ -52,37 +46,34 @@ note over UserInterface #Orange
 end note
 利用者 -> UserInterface : 希望金額を入力
 '不正な入力はUIの段階で弾いておくべきではないか? 現実の自販機も異物は突っ込めない
-'自分で定めた条件や、nextIntの例外を拾う
+'自分で定めた条件や、sc.nextInt()の例外を拾う
 activate UserInterface
 
 alt 正しい入力 (1000,500,100,50,10のいずれかの整数)
 
 UserInterface -> 自動販売機 : 自動販売機.お金を投入する(int 希望金額)
-
+activate 自動販売機
 自動販売機 -> checker : new
 activate checker
 
 自動販売機 -> checker : checker.上限チェック(int 希望金額, int 投入金額)
+deactivate checker
 
 alt 上限チェックがfalse
 
-自動販売機 <-- checker : false
-UserInterface <-- 自動販売機 : false
-UserInterface <- UserInterface : エラーメッセージ02※
     note over UserInterface
     ※ERROR_02
     投入できる金額の上限は9990円です
     end note
+
+else 上限チェックがtrue
+自動販売機 <- 自動販売機 : [int 投入金額]に[int 希望金額]を加算する
+deactivate 自動販売機
 end
 
-自動販売機 <-- checker : true
-deactivate checker
-自動販売機 <- 自動販売機 : [int 投入金額]に[int 希望金額]を加算する
-UserInterface <-- 自動販売機 : true
 
 
 else 不正な入力 (1000,500,100,50,10以外の整数、小数、負の数、int型のデータサイズを超える数)
-UserInterface <- UserInterface : エラーメッセージ01※
     note over UserInterface
     ERROR_01:入力が正しくありません
     1000,500,100,50,10 のいずれかを入力してください
