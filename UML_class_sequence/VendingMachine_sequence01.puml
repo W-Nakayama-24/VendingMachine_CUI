@@ -64,6 +64,7 @@ alt 上限チェックがfalse
     note over UserInterface
     ※ERROR_02
     投入できる金額の上限は9990円です
+    [希望金額]円を返却しました
     end note
 
 else 上限チェックがtrue
