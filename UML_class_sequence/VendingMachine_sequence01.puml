@@ -34,8 +34,9 @@ deactivate UserInterface
 activate UserInterface
 
 
-UserInterface <- UserInterface : システムメッセージ01※
+UserInterface <- UserInterface : システムメッセージ01を表示
     note over UserInterface
+    --[1]お金を投入する--
     1000,500,100,50,10 のいずれかを入力してください
     end note
 deactivate UserInterface
@@ -60,9 +61,11 @@ activate checker
 deactivate checker
 
 alt 上限チェックがfalse
+自動販売機 <- 自動販売機 : [int 希望金額]を利用者に返却する
+UserInterface <- UserInterface : エラーメッセージ02を表示
 
     note over UserInterface
-    ※ERROR_02
+    ERROR_02
     投入できる金額の上限は9990円です
     [希望金額]円を返却しました
     end note
@@ -75,6 +78,7 @@ end
 
 
 else 不正な入力 (1000,500,100,50,10以外の整数、小数、負の数、int型のデータサイズを超える数)
+UserInterface <- UserInterface : エラーメッセージ01を表示
     note over UserInterface
     ERROR_01:入力が正しくありません
     1000,500,100,50,10 のいずれかを入力してください
