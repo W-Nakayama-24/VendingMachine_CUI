@@ -756,7 +756,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><span class="red">1000, 500, 100, 50, 10 以外を入力した場合</span> ⇒ <a href="#alt_uc01">代替フロー1に移行</a></p>
 </li>
 <li>
-<p><span class="red">この入力をもって投入金額が「9990円」を超える場合</span># ⇒ <a href="#alt_uc01">代替フロー2に移行</a></p>
+<p><span class="red">この入力をもって投入金額が「9990円」を超える場合</span> ⇒ <a href="#alt_uc01">代替フロー2に移行</a></p>
 </li>
 </ul>
 </div>
@@ -795,7 +795,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>投入金額への加算は実施せずに、入力された金額を含むエラーメッセージ02をコンソールに表示する</p>
+<p>投入金額への加算は実施せずに、入力された金額を返却する</p>
+</li>
+<li>
+<p>ステップaの完了を示すエラーメッセージ02をコンソールに表示する</p>
 </li>
 <li>
 <p>基本フローのステップ6に移動する</p>
@@ -843,7 +846,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>ERROR_02:システムに投入できる金額の上限は9990円です</pre>
+<pre>ERROR_02:システムに投入できる金額の上限は9990円です
+[入力された金額]円 を返却しました</pre>
 </div>
 </div></div></td>
 </tr>
@@ -960,7 +964,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>エラーメッセージ02をコンソールに表示する</p>
+<p>エラーメッセージ03をコンソールに表示する</p>
 </li>
 <li>
 <p>基本フローのステップ7に移動する(シナリオを終了する)</p>
@@ -973,7 +977,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>エラーメッセージ03をコンソールに表示する</p>
+<p>エラーメッセージ04をコンソールに表示する</p>
 </li>
 <li>
 <p>基本フローのステップ7に移動する(シナリオを終了する)</p>
@@ -986,7 +990,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>エラーメッセージ04をコンソールに表示する</p>
+<p>エラーメッセージ05をコンソールに表示する</p>
 </li>
 <li>
 <p>基本フローのステップ7に移動する(シナリオを終了する)</p>
@@ -999,7 +1003,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>エラーメッセージ05をコンソールに表示する</p>
+<p>エラーメッセージ06をコンソールに表示する</p>
 </li>
 <li>
 <p>基本フローのステップ7に移動する(シナリオを終了する)</p>
@@ -1170,7 +1174,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>エラーメッセージ06をコンソールに表示する</p>
+<p>エラーメッセージ07をコンソールに表示する</p>
 </li>
 <li>
 <p>基本フローのステップ4に移動する(シナリオを終了する)</p>
@@ -1306,7 +1310,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>エラーメッセージ07をコンソールに表示する</p>
+<p>エラーメッセージ08をコンソールに表示する</p>
 </li>
 <li>
 <p>プログラムを終了せず、<a href="#first_display">初期画面</a>を表示する</p>
@@ -1354,7 +1358,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 0.3<br>
-Last updated 2019-10-28 15:50:35 +0900
+Last updated 2019-11-06 11:27:25 +0900
 </div>
 </div>
 </body>
