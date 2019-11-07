@@ -80,8 +80,8 @@ public class UserInterface {
             System.out.print("input 希望金額>>");
             try {
                 requestMoney = sc.nextInt();
-                if (requestMoney = 1000 || requestMoney = 500 || requestMoney = 100 || requestMoney = 50
-                        || requestMoney = 10) {
+                if (requestMoney == 1000 || requestMoney == 500 || requestMoney == 100 || requestMoney == 50
+                        || requestMoney == 10) {
                     if (vm.insertMoney(requestMoney) == true) {
                         System.out.println("[ " + requestMoney + " ]円を投入しました");
                         break;
