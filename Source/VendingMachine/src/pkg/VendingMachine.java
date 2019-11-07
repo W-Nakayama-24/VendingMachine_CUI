@@ -43,5 +43,4 @@ public class VendingMachine {
         // スキャナーのcloseも実施していないままである
         System.exit(0);
     }
-
 }
