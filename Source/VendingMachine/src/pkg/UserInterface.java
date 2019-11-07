@@ -1,6 +1,6 @@
 package pkg;
 
-import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -15,7 +15,7 @@ public class UserInterface {
         System.out.println();
         System.out.println("===商品準備中===");
         System.out.println();
-        System.out.println("投入金額 [ " + vm.getDeposit() + " ]円");
+        System.out.println("投入金額 [ " + vm.getTmpDeposit() + " ]円");
         System.out.println();
         System.out.println("機能を選択してください");
         System.out.println("[1]お金を投入する");
@@ -33,11 +33,8 @@ public class UserInterface {
             switch (sc.nextInt()) {
             case 1:
                 System.out.println("---[1]お金を投入する---");
-                if (inputRequestMoney() == true) {
-
-                } else {
-                    System.out.println("お金の投入に失敗しました");
-                }
+                System.out.println("1000, 500, 100, 50, 10のいずれかを入力してください");
+                inputRequestMoney();
                 break;
             case 2:
                 System.out.println("---[2]商品を購入する機能 は準備中です---");
@@ -50,7 +47,7 @@ public class UserInterface {
             case 9:
                 System.out.println("---[9]システムを終了する機能 は準備中です---");
                 System.out.println("(現在、簡易版の機能を実装しています 11/06)");
-                if (vm.getDeposit() == 0) {
+                if (vm.getTmpDeposit() == 0) {
                     System.out.println("自販機システムを終了します ありがとうございました");
                     vm.quitSystem();
                     break;
@@ -64,7 +61,8 @@ public class UserInterface {
                 System.out.println("(1,2,3,9のいずれかを入力して機能を選択します)");
                 break;
             }
-        } catch (InputMismatchException inputEx) {
+        } catch (NoSuchElementException | IllegalStateException ex) {
+            ex.printStackTrace();
             System.out.println("ERROR_00 正しく入力してください");
             System.out.println("(1,2,3,9のいずれかを入力して機能を選択します)");
         }
@@ -75,7 +73,7 @@ public class UserInterface {
     }
 
     // 投入したい金額を入力する
-    public boolean inputRequestMoney() {
+    public void inputRequestMoney() {
         while (true) {
             System.out.print("input 希望金額>>");
             try {
@@ -95,17 +93,12 @@ public class UserInterface {
                     System.out.println("1000, 500, 100, 50, 10のいずれかを入力してください");
                     System.out.println();
                 }
-            } catch (InputMismatchException inputEx) {
-                inputEx.printStackTrace();
+            } catch (NoSuchElementException | IllegalStateException ex) {
+                ex.printStackTrace();
                 System.out.println("ERROR_01:入力が正しくありません");
                 System.out.println("1000, 500, 100, 50, 10のいずれかを入力してください");
-                System.out.print("input 希望金額>>");
-                // 【解決済み】catchブロックに一度入ると無限ループになってしまう問題
-                // ⇒入力バッファのクリアーをしていなかったため。
-                // (最初に入力している文字列がそのまま残っていて、再入力する前にまたその文字を読み取って以下無限ループ)
-                sc.nextLine(); // sc.nextLineで一度初期化してあげる
+                sc.nextLine(); // バッファに入ったままの不正入力をクリアーする
             }
         }
-        return true;
     }
 }
