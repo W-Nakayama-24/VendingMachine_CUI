@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class UserInterface {
 
     int requestMoney = 0; // 希望金額
+    final int maxOfDeposit = 9990; // 投入金額の上限
+    
     VendingMachine vm = new VendingMachine();
     Scanner sc = new Scanner(System.in);
 
@@ -33,7 +35,7 @@ public class UserInterface {
             switch (sc.nextInt()) {
             case 1:
                 System.out.println("---[1]お金を投入する---");
-                System.out.println("1000, 500, 100, 50, 10のいずれかを入力してください");
+                System.out.println("1000,500,100,50,10のいずれかを入力してください");
                 inputRequestMoney();
                 break;
             case 2:
@@ -61,7 +63,7 @@ public class UserInterface {
                 System.out.println("(1,2,3,9のいずれかを入力して機能を選択します)");
                 break;
             }
-        } catch (NoSuchElementException | IllegalStateException ex) {
+        } catch (RuntimeException ex) {
             ex.printStackTrace();
             System.out.println("ERROR_00 正しく入力してください");
             System.out.println("(1,2,3,9のいずれかを入力して機能を選択します)");
@@ -78,25 +80,25 @@ public class UserInterface {
             System.out.print("input 希望金額>>");
             try {
                 requestMoney = sc.nextInt();
-                if (requestMoney == 1000 || requestMoney == 500 || requestMoney == 100 || requestMoney == 50
-                        || requestMoney == 10) {
+                if (requestMoney = 1000 || requestMoney = 500 || requestMoney = 100 || requestMoney = 50
+                        || requestMoney = 10) {
                     if (vm.insertMoney(requestMoney) == true) {
                         System.out.println("[ " + requestMoney + " ]円を投入しました");
                         break;
                     } else {
-                        System.out.println("ERROR_02 投入できる金額の上限は9990円です");
+                        System.out.println("ERROR_02 投入できる金額の上限は"+ maxOfDeposit +"円です");
                         System.out.println("[ " + requestMoney + " ]円を返却しました");
                         break;
                     }
                 } else {
                     System.out.println("ERROR_01:入力が正しくありません");
-                    System.out.println("1000, 500, 100, 50, 10のいずれかを入力してください");
+                    System.out.println("1000,500,100,50,10のいずれかを入力してください");
                     System.out.println();
                 }
-            } catch (NoSuchElementException | IllegalStateException ex) {
+            } catch (RuntimeException ex) {
                 ex.printStackTrace();
                 System.out.println("ERROR_01:入力が正しくありません");
-                System.out.println("1000, 500, 100, 50, 10のいずれかを入力してください");
+                System.out.println("1000,500,100,50,10のいずれかを入力してください");
                 sc.nextLine(); // バッファに入ったままの不正入力をクリアーする
             }
         }
