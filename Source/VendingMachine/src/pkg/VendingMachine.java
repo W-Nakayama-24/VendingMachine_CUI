@@ -2,21 +2,21 @@ package pkg;
 
 public class VendingMachine {
 
-    int Deposit = 0; // 投入金額
+    int deposit = 0; // 投入金額
 
     // 投入金額のgetter
     public int getDeposit() {
-        return Deposit;
+        return deposit;
     }
 
     // お金を投入する
     public boolean insertMoney(int requestMoney) {
         boolean checkResult;
         DepositExcessChecker dexcheck = new DepositExcessChecker();
-        checkResult = dexcheck.checkDepositExcess(requestMoney, Deposit);
+        checkResult = dexcheck.checkDepositExcess(requestMoney, deposit);
 
         if (checkResult == true) {
-            Deposit += requestMoney;
+            deposit += requestMoney;
             return true;
         } else {
             return false;
@@ -28,9 +28,9 @@ public class VendingMachine {
     // おつり用の変数が必要になる可能性??
     // メッセージの出力は本来UIの仕事になるか
     public void receiveChange() {
-        if (Deposit != 0) {
-            System.out.println("[ " + Deposit + " ]円を返却しました");
-            Deposit = 0;
+        if (deposit != 0) {
+            System.out.println("[ " + deposit + " ]円を返却しました");
+            deposit = 0;
         } else {
             System.out.println("ERROR_07 返却出来るお金がありません");
             System.out.println("お金を追加してください(1000, 500, 100, 50, 10)");
