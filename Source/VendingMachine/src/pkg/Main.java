@@ -6,10 +6,16 @@ public class Main {
 
         UserInterface ui = new UserInterface();
         boolean systemContinueFlag = true;
-        while (systemContinueFlag == true) {
-            ui.display();
-            ui.callFunction();
+        try{
+            while (systemContinueFlag == true) {
+                ui.display();
+                ui.callFunction();
+            }
+        }catch (RuntimeException ex) {
+            System.out.println("予期せぬ例外が発生した為、システムを中断しました");
+            System.out.println("管理者までご連絡ください");
+            ex.printStackTrace();
         }
-
     }
+
 }

@@ -63,21 +63,16 @@ public class UserInterface {
                 System.out.println("(1,2,3,9のいずれかを入力して機能を選択します)");
                 break;
             }
-        } catch (InputMismatchException inputex) {
-            inputex.printStackTrace();
+        } catch (InputMismatchException ex) {
+            ex.printStackTrace();
             System.out.println("ERROR_00 正しく入力してください");
             System.out.println("(1,2,3,9のいずれかを入力して機能を選択します)");
-            sc.nextLine(); // 入力バッファのクリアー
-        } catch (NoSuchElementException elementex){
-            elementex.printStackTrace();
-            System.out.println("ERROR_09 読み込める入力がありません 再度入力を受け付けます");
-        } catch (IllegalStateException illegalstateEx){
-            illegalstateEx.printStackTrace();
-            System.out.println("ERROR_10 入力を読み込むスキャナがクローズしています 管理者にご連絡ください");
+            sc.nextLine(); // バッファに入ったままの不正入力をクリアーする
         }
         System.out.println();
         System.out.println("========================");
         System.out.println();
+
     }
 
     // 投入したい金額を入力する
@@ -101,17 +96,11 @@ public class UserInterface {
                     System.out.println("1000,500,100,50,10のいずれかを入力してください");
                     System.out.println();
                 }
-            } catch (InputMismatchException inputex) {
-                inputex.printStackTrace();
+            } catch (InputMismatchException ex) {
+                ex.printStackTrace();
                 System.out.println("ERROR_01:入力が正しくありません");
                 System.out.println("1000,500,100,50,10のいずれかを入力してください");
                 sc.nextLine(); // バッファに入ったままの不正入力をクリアーする
-            } catch (NoSuchElementException elementex){
-                elementex.printStackTrace();
-                System.out.println("ERROR_09 読み込める入力がありません 再度入力を受け付けます");
-            } catch (IllegalStateException illegalstateEx){
-                illegalstateEx.printStackTrace();
-                System.out.println("ERROR_10 入力を読み込むスキャナがクローズしています 管理者にご連絡ください");
             }
         }
     }
