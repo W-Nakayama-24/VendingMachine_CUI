@@ -9,7 +9,7 @@ public class VendingMachineTest {
 
     @Test
     // getterのテスト 最初の投入金額0円を取得する
-    public void testGetDeposit() {
+    public void GetDeposit() {
         VendingMachine vm = new VendingMachine();
         int getterTestResult = vm.getDeposit();
         assertThat(getterTestResult, is(0));
@@ -18,7 +18,7 @@ public class VendingMachineTest {
     @Test
     // お金投入のテスト 希望金額1000円で上限チェックがOKのとき、trueを返す
     // 投入金額が希望金額の分だけ増える
-    public void testInsertSuccess() {
+    public void InsertSuccess() {
         VendingMachine vm = new VendingMachine();
         int getterTestResult = 0;
         int requestMoney = 1000;
@@ -33,7 +33,7 @@ public class VendingMachineTest {
     @Test
     // お金投入のテスト 希望金額9991円で上限チェックがNGのとき、falseを返す
     // 投入金額が変化していない
-    public void testInsertFailure() {
+    public void InsertFailure() {
         VendingMachine vm = new VendingMachine();
         int getResultBefore = 0;
         int getResultAfter = 0;
