@@ -17,25 +17,36 @@ public class VendingMachineTest {
 
     @Test
     // お金投入のテスト 希望金額1000円で上限チェックがOKのとき、trueを返す
-    // 投入金額が0円から1000円に増える
-    public void testInsertMoney1() {
+    // 投入金額が希望金額の分だけ増える
+    public void testInsertSuccess() {
         VendingMachine vm = new VendingMachine();
+        int getterTestResult = 0;
+        int requestMoney = 1000;
 
-        int getterTestResult = vm.getDeposit();
-        assertThat(getterTestResult, is(0));
-
-        boolean insertResult = vm.insertMoney(1000);
-        getterTestResult = vm.getDeposit();
+        boolean insertResult = vm.insertMoney(requestMoney);
         assertThat(insertResult, is(true));
-        assertThat(getterTestResult, is(1000));
+
+        getterTestResult = vm.getDeposit();
+        assertThat(getterTestResult, is(requestMoney));
     }
 
     @Test
-    // お金投入のテスト 希望金額9999円で上限チェックがNGのとき、falseを返す
-    public void testInsertMoney2() {
+    // お金投入のテスト 希望金額9991円で上限チェックがNGのとき、falseを返す
+    // 投入金額が変化していない
+    public void testInsertFailure() {
         VendingMachine vm = new VendingMachine();
-        boolean insertResult = vm.insertMoney(9999);
+        int getResultBefore = 0;
+        int getResultAfter = 0;
+        int requestMoney = 9991;
+
+        getResultBefore = vm.getDeposit();
+
+        boolean insertResult = vm.insertMoney(requestMoney);
         assertThat(insertResult, is(false));
+
+        getResultAfter = vm.getDeposit();
+
+        assertThat(getResultAfter, is(getResultBefore));
     }
 
 }

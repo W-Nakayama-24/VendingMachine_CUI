@@ -8,18 +8,26 @@ import org.junit.Test;
 public class DepositExcessCheckerTest {
 
     @Test
-    // 希望金額が1000円,投入金額が0円のとき,加算後に上限を超えないのでtrueを返す
-    public void testCheckDepositExcess1() {
+    // 希望金額が1000円,投入金額が0円のとき,加算後に上限の9990円を超えないのでtrueを返す
+    public void testCheckSuccessFromZero() {
         DepositExcessChecker dexchecker = new DepositExcessChecker();
         boolean checkResult = dexchecker.checkDepositExcess(1000, 0);
         assertThat(checkResult, is(true));
     }
 
     @Test
-    // 希望金額が1000円,投入金額が9000円のとき,加算後に上限を超えるのでfalseを返す
-    public void testCheckDepositExcess2() {
+    // 希望金額が1000円,投入金額が1000円のとき,加算後に上限の9990円を超えないのでtrueを返す
+    public void testCheckSuccessFromNotZero() {
         DepositExcessChecker dexchecker = new DepositExcessChecker();
-        boolean checkResult = dexchecker.checkDepositExcess(1000, 9000);
+        boolean checkResult = dexchecker.checkDepositExcess(1000, 1000);
+        assertThat(checkResult, is(true));
+    }
+
+    @Test
+    // 希望金額が1円,投入金額が9990円のとき,加算後に上限の9990円を超えるのでfalseを返す
+    public void testDepositExcess() {
+        DepositExcessChecker dexchecker = new DepositExcessChecker();
+        boolean checkResult = dexchecker.checkDepositExcess(1, 9990);
         assertThat(checkResult, is(false));
     }
 
