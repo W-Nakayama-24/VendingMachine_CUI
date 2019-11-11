@@ -5,32 +5,22 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class VendingMachineTest {
+public class DepositExcessCheckerTest {
 
     @Test
-    // getterのテスト 最初の投入金額0円を取得する
-    public void testGetDeposit() {
-        VendingMachine vm = new VendingMachine();
-        int getterTestResult = vm.getDeposit();
-        assertThat(getterTestResult, is(0));
+    // 希望金額が1000円,投入金額が0円のとき,加算後に上限を超えないのでtrueを返す
+    public void testCheckDepositExcess1() {
+        DepositExcessChecker dexchecker = new DepositExcessChecker();
+        boolean checkResult = dexchecker.checkDepositExcess(1000, 0);
+        assertThat(checkResult, is(true));
     }
 
     @Test
-    // お金投入のテスト 希望金額1000円で上限チェックがOKのとき、trueを返す
-    public void testInsertMoney1() {
-        VendingMachine vm = new VendingMachine();
-        boolean insertResult = vm.insertMoney(1000);
-        int getterTestResult = vm.getDeposit();
-        assertThat(insertResult, is(true));
-        assertThat(getterTestResult, is(1000));
-    }
-
-    @Test
-    // お金投入のテスト 希望金額9999円で上限チェックがNGのとき、falseを返す
-    public void testInsertMoney2() {
-        VendingMachine vm = new VendingMachine();
-        boolean insertResult = vm.insertMoney(9999);
-        assertThat(insertResult, is(false));
+    // 希望金額が1000円,投入金額が9000円のとき,加算後に上限を超えるのでfalseを返す
+    public void testCheckDepositExcess2() {
+        DepositExcessChecker dexchecker = new DepositExcessChecker();
+        boolean checkResult = dexchecker.checkDepositExcess(1000, 9000);
+        assertThat(checkResult, is(false));
     }
 
 }
