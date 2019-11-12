@@ -1,43 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>DepositExcessCheckerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">VendingMachineTest (2019/11/12 13:25:56)</a> &gt; <a href="../../index.html" class="el_group">ojt_sandbox</a> &gt; <a href="../index.html" class="el_bundle">test</a> &gt; <a href="index.source.html" class="el_package">pkg</a> &gt; <span class="el_source">DepositExcessCheckerTest.java</span></div><h1>DepositExcessCheckerTest.java</h1><pre class="source lang-java linenums">package pkg;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>DepositExcessCheckerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">pkg (2019/11/12 13:43:46)</a> &gt; <a href="../../index.html" class="el_group">ojt_sandbox</a> &gt; <a href="../index.html" class="el_bundle">test</a> &gt; <a href="index.source.html" class="el_package">pkg</a> &gt; <span class="el_source">DepositExcessCheckerTest.java</span></div><h1>DepositExcessCheckerTest.java</h1><pre class="source lang-java linenums">package pkg;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-<span class="nc" id="L8">public class DepositExcessCheckerTest {</span>
+<span class="fc" id="L8">public class DepositExcessCheckerTest {</span>
 
     @Test
-    //希望金額が1000円,投入金額が0円のとき,加算後に上限の9990円を超えないのでtrueを返す
+    // 希望金額が1000円,投入金額が0円のとき,加算後に上限の9990円を超えないのでtrueを返す
     public void successFromZero() {
-<span class="nc" id="L13">        DepositExcessChecker dexchecker = new DepositExcessChecker();</span>
-<span class="nc" id="L14">        boolean checkResult = dexchecker.checkDepositExcess(1000, 0);</span>
-<span class="nc" id="L15">        assertThat(checkResult, is(true));</span>
-<span class="nc" id="L16">    }</span>
+<span class="fc" id="L13">        DepositExcessChecker dexchecker = new DepositExcessChecker();</span>
+<span class="fc" id="L14">        boolean checkResult = dexchecker.checkDepositExcess(1000, 0);</span>
+<span class="fc" id="L15">        assertThat(checkResult, is(true));</span>
+<span class="fc" id="L16">    }</span>
 
     @Test
-    //希望金額が1000円,投入金額が1000円のとき,加算後に上限の9990円を超えないのでtrueを返す
+    // 希望金額が1000円,投入金額が1000円のとき,加算後に上限の9990円を超えないのでtrueを返す
     public void successFromNotZero() {
-<span class="nc" id="L21">        DepositExcessChecker dexchecker = new DepositExcessChecker();</span>
-<span class="nc" id="L22">        boolean checkResult = dexchecker.checkDepositExcess(1000, 1000);</span>
-<span class="nc" id="L23">        assertThat(checkResult, is(true));</span>
-<span class="nc" id="L24">    }</span>
+<span class="fc" id="L21">        DepositExcessChecker dexchecker = new DepositExcessChecker();</span>
+<span class="fc" id="L22">        boolean checkResult = dexchecker.checkDepositExcess(1000, 1000);</span>
+<span class="fc" id="L23">        assertThat(checkResult, is(true));</span>
+<span class="fc" id="L24">    }</span>
 
     @Test
-    //希望金額が1円,投入金額が9990円のとき,加算後に上限の9990円を超えるのでfalseを返す
+    // 希望金額が1円,投入金額が9990円のとき,加算後に上限の9990円を超えるのでfalseを返す
     public void depositExcess() {
-<span class="nc" id="L29">        DepositExcessChecker dexchecker = new DepositExcessChecker();</span>
-<span class="nc" id="L30">        boolean checkResult = dexchecker.checkDepositExcess(1, 9990);</span>
-<span class="nc" id="L31">        assertThat(checkResult, is(false));</span>
-<span class="nc" id="L32">    }</span>
+<span class="fc" id="L29">        DepositExcessChecker dexchecker = new DepositExcessChecker();</span>
+<span class="fc" id="L30">        boolean checkResult = dexchecker.checkDepositExcess(1, 9990);</span>
+<span class="fc" id="L31">        assertThat(checkResult, is(false));</span>
+<span class="fc" id="L32">    }</span>
 
     @Test
-    //希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す
+    // 希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す
     public void reachMaxDeposit() {
-<span class="nc" id="L37">        DepositExcessChecker dexchecker = new DepositExcessChecker();</span>
-<span class="nc" id="L38">        boolean checkResult = dexchecker.checkDepositExcess(1, 9990 - 1);</span>
-<span class="nc" id="L39">        assertThat(checkResult, is(true));</span>
-<span class="nc" id="L40">    }</span>
+<span class="fc" id="L37">        DepositExcessChecker dexchecker = new DepositExcessChecker();</span>
+<span class="fc" id="L38">        boolean checkResult = dexchecker.checkDepositExcess(1, 9990 - 1);</span>
+<span class="fc" id="L39">        assertThat(checkResult, is(true));</span>
+<span class="fc" id="L40">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>VendingMachineTest (2019/11/12 13:25:56)</div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>pkg (2019/11/12 13:43:46)</div></body></html>
