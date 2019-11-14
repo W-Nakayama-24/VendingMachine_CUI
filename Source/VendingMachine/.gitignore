@@ -1,0 +1,8 @@
+#特定のフォルダの中身全てを無視する
+.settings/
+.vscode/
+bin/
+
+#特定の拡張子を無視する
+*.classpath
+*.project
