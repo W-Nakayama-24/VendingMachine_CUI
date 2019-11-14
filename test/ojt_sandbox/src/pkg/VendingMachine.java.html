@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ja"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>VendingMachine.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">pkg (2019/11/12 13:54:20)</a> &gt; <a href="../../index.html" class="el_group">ojt_sandbox</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">pkg</a> &gt; <span class="el_source">VendingMachine.java</span></div><h1>VendingMachine.java</h1><pre class="source lang-java linenums">package pkg;
+
+<span class="fc" id="L3">public class VendingMachine {</span>
+
+<span class="fc" id="L5">    int deposit = 0; // 投入金額</span>
+
+    // 投入金額のgetter
+    public int getDeposit() {
+<span class="fc" id="L9">        return deposit;</span>
+    }
+
+    // お金を投入する
+    public boolean insertMoney(int requestMoney) {
+        boolean checkResult;
+<span class="fc" id="L15">        DepositExcessChecker dexcheck = new DepositExcessChecker();</span>
+<span class="fc" id="L16">        checkResult = dexcheck.checkDepositExcess(requestMoney, deposit);</span>
+
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        if (checkResult == true) {</span>
+<span class="fc" id="L19">            deposit += requestMoney;</span>
+<span class="fc" id="L20">            return true;</span>
+        } else {
+<span class="fc" id="L22">            return false;</span>
+        }
+    }
+
+    // 返金を受け取る(簡易版実装 11/06)
+    // 本来は戻り値がint
+    // おつり用の変数が必要になる可能性??
+    // メッセージの出力は本来UIの仕事になるか
+    public void receiveChange() {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (deposit != 0) {</span>
+<span class="nc" id="L32">            System.out.println(&quot;[ &quot; + deposit + &quot; ]円を返却しました&quot;);</span>
+<span class="nc" id="L33">            deposit = 0;</span>
+<span class="nc" id="L34">        } else {</span>
+<span class="nc" id="L35">            System.out.println(&quot;ERROR_07 返却出来るお金がありません&quot;);</span>
+<span class="nc" id="L36">            System.out.println(&quot;お金を追加してください(1000, 500, 100, 50, 10)&quot;);</span>
+        }
+<span class="nc" id="L38">    }</span>
+
+    // 自販機システムを終了する(簡易版実装 11/06)
+    public void quitSystem() {
+        // こちらからmainメソッドのflagを1にするには? → 戻り値が必要
+        // スキャナーのcloseも実施していないままである
+<span class="nc" id="L44">        System.exit(0);</span>
+<span class="nc" id="L45">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span>pkg (2019/11/12 13:54:20)</div></body></html>
