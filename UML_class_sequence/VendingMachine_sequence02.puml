@@ -1,0 +1,178 @@
+@startuml
+title 自販機システム_UC02商品を購入する
+
+actor 利用者
+
+activate UserInterface
+
+UserInterface -> 自動販売機 : 自動販売機.get投入金額()
+activate 自動販売機
+deactivate 自動販売機
+
+UserInterface -> 自動販売機 : 自動販売機.get在庫数(int 商品番号)
+activate 自動販売機
+自動販売機 -> Storage : Storage.get在庫数(int 商品番号)
+activate Storage
+
+deactivate Storage
+deactivate 自動販売機
+
+UserInterface -> 自動販売機 : 自動販売機.get商品情報(int 商品番号)
+activate 自動販売機
+自動販売機 -> Storage : Storage.get商品情報(int 商品番号)
+activate Storage
+
+note left of Product
+【Storage.get商品情報メソッド】
+引数で受け取った商品番号と同じ番号のキーを、商品情報マップから探して
+マップの値であるProduct型のインスタンスを返却する。
+そのインスタンスが持つ「商品番号」「商品名」「単価」が利用可能になる
+end note
+
+Storage -> Product : Product.get商品番号()
+activate Product
+
+deactivate Product
+deactivate Storage
+deactivate 自動販売機
+deactivate 自動販売機
+
+
+UserInterface <- UserInterface : 初期画面を表示する()
+note over UserInterface
+商品番号 / 商品名 / 単価  / 在庫
+1 / おいしい水   / 100円 / 残り12本
+2 / サイコソーダ / 150円 / 残り5本
+3 / ミックスオレ / 160円 / 残り0本
+
+投入金額 [   0]円
+
+
+機能を選択してください
+[1] お金を投入する
+[2] 商品を購入する
+[3] 返金を受け取る
+[9] システムを終了する
+end note
+deactivate UserInterface
+
+
+利用者 -> UserInterface : 2を入力
+
+'loop 初めに登録した商品番号すべてを使って実施
+activate UserInterface
+UserInterface -> 自動販売機 : 自動販売機.get在庫数(int 商品番号)
+activate 自動販売機
+自動販売機 -> Storage : Storage.get在庫数(int 商品番号)
+activate Storage
+
+deactivate Product
+deactivate Storage
+deactivate 自動販売機
+'end loop
+
+alt 少なくとも1商品は在庫がある
+    UserInterface -> 自動販売機 : 自動販売機.get商品情報(int 商品番号)
+    activate 自動販売機
+    自動販売機 -> Storage : Storage.get商品情報(int 商品番号)
+    activate Storage
+
+    Storage -> Product : Product.get商品番号()
+    activate Product
+
+    deactivate Product
+    UserInterface <- UserInterface : システムメッセージ02を表示
+    note over UserInterface
+    --[2]商品を購入する--
+    商品番号を入力してください
+    1. おいしい水
+    2. サイコソーダ
+    3. ミックスオレ
+    end note
+    deactivate Storage
+    deactivate 自動販売機
+
+else すべての商品の在庫が無い
+    UserInterface <- UserInterface : エラーメッセージ03を表示
+    note over UserInterface
+    ERROR_03: すべての商品が売り切れています
+    end note
+
+end
+deactivate UserInterface
+
+利用者 -> UserInterface : 購入したい商品の番号を入力
+
+activate UserInterface
+
+alt 正しい入力 (自販機システム内に存在する、整数の商品番号)
+
+    UserInterface -> 自動販売機 : 自動販売機.商品を購入する(int 商品番号)
+    activate 自動販売機
+
+    自動販売機 -> Storage : Storage.get在庫数(int 商品番号)
+    activate Storage
+    deactivate Storage
+
+    alt 希望する商品の在庫が無い
+
+        UserInterface -> UserInterface : エラーメッセージ06を表示
+        note over UserInterface
+        ERROR_06:ご指定の商品は売り切れています
+        end note
+
+
+    else 希望する商品の在庫がある
+
+        自動販売機 -> Storage : Storage.get商品情報(int 商品番号)
+        activate Storage
+        Storage -> Product : Product.get商品番号()
+        activate Product
+        deactivate Product
+        deactivate Storage
+
+        自動販売機 -> 金額チェッカー : 金額チェッカー.投入金額が足りているかチェックする(int 単価, int投入金額)
+        activate 金額チェッカー
+        deactivate 金額チェッカー
+
+        alt 投入金額　< 商品の単価
+
+            UserInterface -> UserInterface : エラーメッセージ05を表示
+            note over UserInterface
+            ERROR_05:投入金額が不足しています
+            お金を投入してください
+            end note
+
+        else 投入金額 ≧ 商品の単価
+
+            自動販売機 -> Storage : Storage.在庫を減らす()
+            activate Storage
+            Storage -> Storage : 購入した商品の[int 在庫]を1減らす
+            自動販売機 -> 自動販売機 : [int 投入金額]から購入した商品の[int 単価]分だけ減算する
+            deactivate Storage
+            deactivate 自動販売機
+
+            UserInterface -> UserInterface : システムメッセージ03を表示
+            note over UserInterface
+            ---お買い上げありがとうございます---
+            [入力内容と対応した商品]を購入しました
+            end note
+            
+        end
+
+
+    end
+
+else 不正な入力 (存在する商品番号以外の整数、小数、負の数、int型のデータサイズを超える数、文字列)
+    UserInterface <- UserInterface : エラーメッセージ04を表示
+    note over UserInterface
+    ERROR_04:存在しない商品番号です
+    正しく入力してください
+    end note
+
+  
+end
+
+
+
+@enduml
