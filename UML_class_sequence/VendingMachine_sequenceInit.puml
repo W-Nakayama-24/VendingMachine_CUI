@@ -1,0 +1,60 @@
+@startuml
+title 自販機システム_初期画面を表示する
+
+actor 利用者
+activate UserInterface
+UserInterface -> 自動販売機 : 自動販売機.get投入金額()
+activate 自動販売機
+UserInterface <-- 自動販売機 : 投入金額
+deactivate 自動販売機
+
+loop 登録している商品番号をすべて使って実施
+UserInterface -> 自動販売機 : 自動販売機.get在庫数(int 商品番号)
+activate 自動販売機
+自動販売機 -> Storage : Storage.get在庫数(int 商品番号)
+activate Storage
+自動販売機 <-- Storage : 在庫数
+deactivate Storage
+UserInterface <-- 自動販売機 : 在庫数
+deactivate 自動販売機
+
+UserInterface -> 自動販売機 : 自動販売機.get商品情報(int 商品番号)
+activate 自動販売機
+自動販売機 -> Storage : Storage.get商品情報(int 商品番号)
+activate Storage
+
+note left of Product
+【Storage.get商品情報メソッド】
+引数で受け取った商品番号と同じ番号のキーを、商品情報マップから探して
+マップの値であるProduct型のインスタンスを返却する。
+そのインスタンスが持つ「商品番号」「商品名」「単価」が利用可能になる
+end note
+
+Storage -> Product : Product.get商品番号()
+activate Product
+Storage <-- Product : 商品番号
+deactivate Product
+自動販売機 <-- Storage : 商品情報
+deactivate Storage
+UserInterface <-- 自動販売機 : 商品情報
+deactivate 自動販売機
+end loop
+
+UserInterface <- UserInterface : 初期画面を表示する()
+note over UserInterface
+商品番号 / 商品名 / 単価  / 在庫
+1 / おいしい水   / 100円 / 残り12本
+2 / サイコソーダ / 150円 / 残り5本
+3 / ミックスオレ / 160円 / 残り0本
+
+投入金額 [   0]円
+
+
+機能を選択してください
+[1] お金を投入する
+[2] 商品を購入する
+[3] 返金を受け取る
+[9] システムを終了する
+end note
+deactivate UserInterface
+@enduml

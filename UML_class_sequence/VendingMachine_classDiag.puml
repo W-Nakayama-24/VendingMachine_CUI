@@ -4,8 +4,7 @@ title 自販機システム_クラス図
 
 UserInterface -- 自動販売機
 自動販売機 -- Storage
-自動販売機 ..> 上限チェッカー
-自動販売機 ..> 金額チェッカー
+自動販売機 ..> チェッカー
 Product -o Storage
 
 
@@ -37,13 +36,9 @@ class 自動販売機 {
     +void 自販機を終了する()
 }
 
-class 上限チェッカー{
+class チェッカー{
     +{static}final int 投入金額の上限
     +boolean 上限に達していないかチェックする(int 希望金額, int 投入金額)
-}
-
-
-class 金額チェッカー{
     +boolean 投入金額が足りているかチェックする(int 単価, int 投入金額)
 }
 
