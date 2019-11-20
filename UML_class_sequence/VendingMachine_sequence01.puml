@@ -30,10 +30,11 @@ alt 正しい入力 (1000,500,100,50,10のいずれかの整数)
 
 UserInterface -> 自動販売機 : 自動販売機.お金を投入する(int 希望金額)
 activate 自動販売機
-自動販売機 -> チェッカー : new
-activate チェッカー
+
 
 自動販売機 -> チェッカー : チェッカー.上限チェック(int 希望金額, int 投入金額)
+activate チェッカー
+自動販売機 <-- チェッカー : true/false
 deactivate チェッカー
 
 alt 上限チェックがfalse

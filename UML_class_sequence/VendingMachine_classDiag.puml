@@ -38,21 +38,20 @@ class 自動販売機 {
 
 class チェッカー{
     +{static}final int 投入金額の上限
-    +boolean 上限に達していないかチェックする(int 希望金額, int 投入金額)
-    +boolean 投入金額が足りているかチェックする(int 単価, int 投入金額)
+    +boolean 投入金額の上限に達していないかチェックする(int 希望金額, int 投入金額)
+    +boolean 指定された商品を買える金額かチェックする(Product 商品情報, int 投入金額)
 }
 
 class Storage {
-    +Map<商品番号, Product> 商品情報マップ
-    +Map<商品番号, 在庫数> 在庫数マップ
+    +Product[] 商品情報
+    +Map<int 商品番号, int 在庫数> 在庫数マップ
     --
     +Storage()
     --
-    +void 商品情報を商品情報マップに追加する(Integer 商品番号, Product 商品情報)
     +void 在庫数を在庫数マップに追加する(Integer 商品番号, Integer 在庫数)
     +Product get商品情報(int 商品番号)
     +int get在庫数(int 商品番号)
-    +void 在庫を減らす(int 商品番号)
+    +void 在庫数を減らす(int 商品番号)
 }
 
 class Product {

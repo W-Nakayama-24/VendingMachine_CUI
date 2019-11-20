@@ -5,7 +5,7 @@ actor 利用者
 activate UserInterface
 UserInterface -> 自動販売機 : 自動販売機.get投入金額()
 activate 自動販売機
-UserInterface <-- 自動販売機 : 投入金額
+UserInterface <-- 自動販売機 : int 投入金額
 deactivate 自動販売機
 
 loop 登録している商品番号をすべて使って実施
@@ -13,9 +13,9 @@ UserInterface -> 自動販売機 : 自動販売機.get在庫数(int 商品番号
 activate 自動販売機
 自動販売機 -> Storage : Storage.get在庫数(int 商品番号)
 activate Storage
-自動販売機 <-- Storage : 在庫数
+自動販売機 <-- Storage : int 在庫数
 deactivate Storage
-UserInterface <-- 自動販売機 : 在庫数
+UserInterface <-- 自動販売機 : int 在庫数
 deactivate 自動販売機
 
 UserInterface -> 自動販売機 : 自動販売機.get商品情報(int 商品番号)
@@ -23,22 +23,25 @@ activate 自動販売機
 自動販売機 -> Storage : Storage.get商品情報(int 商品番号)
 activate Storage
 
-note left of Product
+note over Storage
 【Storage.get商品情報メソッド】
-引数で受け取った商品番号と同じ番号のキーを、商品情報マップから探して
-マップの値であるProduct型のインスタンスを返却する。
+引数で受け取った商品番号に対応するProduct型のインスタンスを
+Storageクラスの配列「商品情報」から取り出し、返却する。
 そのインスタンスが持つ「商品番号」「商品名」「単価」が利用可能になる
 end note
 
-Storage -> Product : Product.get商品番号()
-activate Product
-Storage <-- Product : 商品番号
-deactivate Product
-自動販売機 <-- Storage : 商品情報
+
+自動販売機 <-- Storage : Product 商品情報
 deactivate Storage
-UserInterface <-- 自動販売機 : 商品情報
+UserInterface <-- 自動販売機 : Product 商品情報
 deactivate 自動販売機
-end loop
+
+' UserInterface -> Product : get商品番号(), get商品名(), get単価()
+' activate Product
+' UserInterface <-- Product : int 商品番号, String 商品名, int 単価
+' deactivate Product 
+
+end
 
 UserInterface <- UserInterface : 初期画面を表示する()
 note over UserInterface

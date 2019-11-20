@@ -14,9 +14,9 @@ UserInterface -> 自動販売機 : 自動販売機.get在庫数(int 商品番号
 activate 自動販売機
 自動販売機 -> Storage : Storage.get在庫数(int 商品番号)
 activate Storage
-自動販売機 <-- Storage : 在庫数
+自動販売機 <-- Storage : int 在庫数
 deactivate Storage
-UserInterface <-- 自動販売機 : 在庫数
+UserInterface <-- 自動販売機 : int 在庫数
 deactivate 自動販売機
 end loop
 
@@ -26,14 +26,15 @@ alt 少なくとも1商品は在庫がある
     自動販売機 -> Storage : Storage.get商品情報(int 商品番号)
     activate Storage
 
-    Storage -> Product : Product.get商品番号()
-    activate Product
-    Storage <-- Product : 商品番号
-    deactivate Product
-    自動販売機 <-- Storage : 商品情報 
+    自動販売機 <-- Storage : Product 商品情報 
     deactivate Storage
-    UserInterface <-- 自動販売機 : 商品情報
+    UserInterface <-- 自動販売機 : Product 商品情報
     deactivate 自動販売機
+
+    ' UserInterface -> Product : get商品番号(), get商品名()
+    ' activate Product
+    ' UserInterface <-- Product : int 商品番号, String 商品名
+    ' deactivate Product 
 
     UserInterface <- UserInterface : システムメッセージ02を表示
     note over UserInterface
@@ -63,7 +64,7 @@ alt 正しい入力 (自販機システム内に存在する、整数の商品�
     activate 自動販売機
     自動販売機 -> Storage : Storage.get在庫数(int 商品番号)
     activate Storage
-    自動販売機 <-- Storage : 在庫数
+    自動販売機 <-- Storage : int 在庫数
     deactivate Storage
 
     alt 希望する商品の在庫が無い
@@ -78,14 +79,10 @@ alt 正しい入力 (自販機システム内に存在する、整数の商品�
 
         自動販売機 -> Storage : Storage.get商品情報(int 商品番号)
         activate Storage
-        Storage -> Product : Product.get商品番号()
-        activate Product
-        Storage <-- Product : 商品番号
-        deactivate Product
-        自動販売機 <-- Storage : 商品情報 
+        自動販売機 <-- Storage : Product 商品情報 
         deactivate Storage
 
-        自動販売機 -> チェッカー : チェッカー.投入金額が足りているかチェックする(int 単価, int投入金額)
+        自動販売機 -> チェッカー : チェッカー.指定された商品を買える金額かチェックする(Product 商品情報, int投入金額)
         activate チェッカー
         自動販売機 <-- チェッカー : チェック結果 true/false
         deactivate チェッカー
@@ -100,9 +97,9 @@ alt 正しい入力 (自販機システム内に存在する、整数の商品�
 
         else (true) 投入金額 ≧ 商品の単価
 
-            自動販売機 -> Storage : Storage.在庫を減らす()
+            自動販売機 -> Storage : Storage.在庫数を減らす()
             activate Storage
-            Storage -> Storage : 購入した商品の[int 在庫]を1減らす
+            Storage -> Storage : 購入した商品の[int 在庫数]を1減らす
             自動販売機 -> 自動販売機 : [int 投入金額]から購入した商品の[int 単価]分だけ減算する
             deactivate Storage
             deactivate 自動販売機
