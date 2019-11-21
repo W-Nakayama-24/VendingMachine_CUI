@@ -69,6 +69,7 @@ alt 正しい入力 (自販機システム内に存在する、整数の商品�
 
     alt 希望する商品の在庫が無い
 
+        UserInterface <-- 自動販売機 : false
         UserInterface -> UserInterface : エラーメッセージ06を表示
         note over UserInterface
         ERROR_06:ご指定の商品は売り切れています
@@ -87,22 +88,23 @@ alt 正しい入力 (自販機システム内に存在する、整数の商品�
         自動販売機 <-- チェッカー : チェック結果 true/false
         deactivate チェッカー
 
-        alt (false) 投入金額　< 商品の単価
-
+        alt (false) 投入金額が、指定された商品を購入できる金額に達していない
+            
+            UserInterface <-- 自動販売機 : false
             UserInterface -> UserInterface : エラーメッセージ05を表示
             note over UserInterface
             ERROR_05:投入金額が不足しています
             お金を投入してください
             end note
 
-        else (true) 投入金額 ≧ 商品の単価
+        else (true) 投入金額が、指定された商品を購入できる金額に達している
 
             自動販売機 -> Storage : Storage.在庫数を減らす()
             activate Storage
             Storage -> Storage : 購入した商品の[int 在庫数]を1減らす
             自動販売機 -> 自動販売機 : [int 投入金額]から購入した商品の[int 単価]分だけ減算する
             deactivate Storage
-            deactivate 自動販売機
+            UserInterface <-- 自動販売機 : true
 
             UserInterface -> UserInterface : システムメッセージ03を表示
             note over UserInterface
@@ -116,6 +118,9 @@ alt 正しい入力 (自販機システム内に存在する、整数の商品�
     end
 
 else 不正な入力 (存在する商品番号以外の整数、小数、負の数、int型のデータサイズを超える数、文字列)
+    
+    UserInterface <-- 自動販売機 : false
+    deactivate 自動販売機
     UserInterface <- UserInterface : エラーメッセージ04を表示
     note over UserInterface
     ERROR_04:存在しない商品番号です
