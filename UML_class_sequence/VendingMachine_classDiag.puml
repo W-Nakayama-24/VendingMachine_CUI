@@ -48,7 +48,6 @@ class Storage {
     --
     +Storage()
     --
-    +void 在庫数を在庫数マップに追加する(Integer 商品番号, Integer 在庫数)
     +Product get商品情報(int 商品番号)
     +int get在庫数(int 商品番号)
     +void 在庫数を減らす(int 商品番号)
