@@ -5,11 +5,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * @author W-Nakayama
+ *
+ */
 public class StorageTest {
 
-    // getProductメソッドのテスト 商品番号「1」を指定した場合
-    // コンストラクタで生成したインスタンスを取得し、
-    // インスタンスが持つ情報もgetterで正しく取得できるかどうかでテストする
+    /**
+     * getProductメソッドのテスト 商品番号「1」を指定した場合、waterインスタンスを取得する。
+     * インスタンスが保持する商品番号,商品名,単価をそれぞれ正しく取得できていれば waterインスタンスを正しく取得できたと言える
+     */
     @Test
     public void getWaterSuccess() {
         Storage storage = new Storage();
@@ -19,7 +24,9 @@ public class StorageTest {
         assertThat(testWater.getPrice(), is(100));
     }
 
-    // getProductメソッドのテスト 商品番号「2」を指定した場合
+    /**
+     * 商品番号「2」を指定した場合、sodaインスタンスを取得する。
+     */
     @Test
     public void getSodaSuccess() {
         Storage storage = new Storage();
@@ -29,7 +36,9 @@ public class StorageTest {
         assertThat(testSoda.getPrice(), is(150));
     }
 
-    // getProductメソッドのテスト 商品番号「3」を指定した場合
+    /**
+     * 商品番号「3」を指定した場合、micインスタンスを取得する。
+     */
     @Test
     public void getMixAulaitSuccess() {
         Storage storage = new Storage();
@@ -39,16 +48,19 @@ public class StorageTest {
         assertThat(testMixAulait.getPrice(), is(160));
     }
 
-    // getProductメソッドのテスト 存在しない商品番号を指定した場合、不正なインデックスを使って配列にアクセスしてしまう
-    // 商品番号が正しくないことを伝えるため、自作例外WrongProductNumberExceptionが発生
+    /**
+     * getProductメソッドのテスト 存在しない商品番号を指定した場合、不正なインデックスを使って配列にアクセスしてしまう
+     * 商品番号が正しくないことを伝えるため、自作例外WrongProductNumberExceptionが発生
+     */
     @Test(expected = WrongProductNumberException.class)
     public void getProductFailure() {
         Storage storage = new Storage();
         storage.getProduct(9);
     }
 
-    // getStockメソッドのテスト
-    // 商品番号を指定し、コンストラクタでstockMapにputしていた在庫数が正しく取得できるかどうかでテストする
+    /**
+     * getStockメソッドのテスト 商品番号を指定し、コンストラクタでstockMapにputしていた在庫数が正しく取得できるかどうかでテストする
+     */
     @Test
     public void getWaterStock() {
         Storage storage = new Storage();
@@ -70,18 +82,20 @@ public class StorageTest {
         assertThat(testStock, is(1));
     }
 
-    // getStockメソッドのテスト
-    // productInfoMapに存在しない商品番号(キー)を指定した場合
-    // 対応する番号を持った商品が見つからなかった結果、nullを返却してしまう
-    // 商品番号が正しくないことを伝えるため、自作例外WrongProductNumberExceptionが発生
+    /**
+     * getStockメソッドのテスト productInfoMapに存在しない商品番号(キー)を指定した場合
+     * 対応する番号を持った商品が見つからなかった結果、nullを返却してしまう
+     * 商品番号が正しくないことを伝えるため、自作例外WrongProductNumberExceptionが発生
+     */
     @Test(expected = WrongProductNumberException.class)
     public void getStockFailure() {
         Storage storage = new Storage();
         storage.getStock(9);
     }
 
-    // reduceStockメソッドのテスト
-    // 商品番号を指定して、在庫が1減らされることを確認
+    /**
+     * reduceStockメソッドのテスト 商品番号を指定して、在庫が1減らされることを確認
+     */
     @Test
     public void reduceWaterStock() {
         Storage storage = new Storage();
@@ -118,9 +132,10 @@ public class StorageTest {
         assertThat(afterTest, is(0));
     }
 
-    // reduceStockメソッドのテスト
-    // 商品番号「9」を指定して、存在しない商品に対して在庫を減らす処理が出来ないことを確認
-    // 自作例外WrongProductNumberExceptionが発生
+    /**
+     * reduceStockメソッドのテスト 商品番号「9」を指定して、存在しない商品に対して在庫を減らす処理が出来ないことを確認
+     * 自作例外WrongProductNumberExceptionが発生
+     */
     @Test(expected = WrongProductNumberException.class)
     public void reduceStockFailure() {
         Storage storage = new Storage();
