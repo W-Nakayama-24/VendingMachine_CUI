@@ -8,9 +8,8 @@ public class Storage {
     Map<Integer, Integer> stockMap;
     Product[] productInfo = new Product[3];
 
-    Storage() {
+    public void initProduct() {
 
-        // 商品ごとにインスタンスを生成
         Product water = new Product(1, "おいしい水", 100);
         Product soda = new Product(2, "サイコソーダ", 150);
         Product mix = new Product(3, "ミックスオレ", 160);
@@ -18,10 +17,11 @@ public class Storage {
         productInfo[0] = water;
         productInfo[1] = soda;
         productInfo[2] = mix;
+    }
 
+    public void initStorage() {
         stockMap = new HashMap<Integer, Integer>();
 
-        // 在庫情報もstockMapに追加
         stockMap.put(1, 12);
         stockMap.put(2, 5);
         stockMap.put(3, 1);
