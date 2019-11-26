@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class Storage {
 
-    List<Product> productList = new ArrayList<Product>();
+    Map<Integer, Product> productInfoMap = new HashMap<Integer, Product>();
     Map<Integer, Integer> stockMap = new HashMap<Integer, Integer>();
 
-    public void chargeProduct(Product product) {
-        productList.add(product);
+    public void addProductInfo(Integer num, Product product) {
+        productInfoMap.put(num, product);
     }
 
     public void chargeStock(Integer num, Integer stock) {
