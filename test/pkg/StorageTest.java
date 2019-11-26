@@ -12,72 +12,72 @@ import org.junit.Test;
 public class StorageTest {
 
     /**
-     * chargeProductメソッドのテスト UserInterfaceクラスで用意するサンプルとは異なる商品を追加する.
-     * 
+     * addProductInfoメソッドのテスト UserInterfaceクラスで用意するサンプルとは異なる商品を追加する
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
-    public void chargeProductSuccess() throws WrongProductNumberException {
+    public void addProductInfoSuccess() throws WrongProductNumberException {
         Storage storage = new Storage();
         Product productForTest = new Product(4, "テスト用商品", 500);
-        storage.chargeProduct(productForTest);
+        storage.addProductInfo(productForTest.getNum(), productForTest);
     }
 
     /**
-     * getProductメソッドのテスト 「おいしい水」の商品情報取得に成功.
-     * 
+     * getProductメソッドのテスト 「おいしい水」の商品情報取得に成功
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
     public void getWaterSuccess() throws WrongProductNumberException {
         Storage storage = new Storage();
         Product water = new Product(1, "おいしい水", 100);
-        storage.chargeProduct(water);
-        Product waterFromList = storage.getProduct(1);
+        storage.addProductInfo(water.getNum(), water);
+        Product waterFromMap = storage.getProduct(water.getNum());
 
-        assertThat(waterFromList.getNum(), is(1));
-        assertThat(waterFromList.getName(), is("おいしい水"));
-        assertThat(waterFromList.getPrice(), is(100));
+        assertThat(waterFromMap.getNum(), is(1));
+        assertThat(waterFromMap.getName(), is("おいしい水"));
+        assertThat(waterFromMap.getPrice(), is(100));
     }
 
     /**
-     * getProductメソッドのテスト 「サイコソーダ」の商品情報取得に成功.
-     * 
+     * getProductメソッドのテスト 「サイコソーダ」の商品情報取得に成功
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
     public void getSodaSuccess() throws WrongProductNumberException {
         Storage storage = new Storage();
         Product soda = new Product(2, "サイコソーダ", 150);
-        storage.chargeProduct(soda);
-        Product sodaFromList = storage.getProduct(1);
+        storage.addProductInfo(soda.getNum(), soda);
+        Product sodaFromMap = storage.getProduct(soda.getNum());
 
-        assertThat(sodaFromList.getNum(), is(2));
-        assertThat(sodaFromList.getName(), is("サイコソーダ"));
-        assertThat(sodaFromList.getPrice(), is(150));
+        assertThat(sodaFromMap.getNum(), is(2));
+        assertThat(sodaFromMap.getName(), is("サイコソーダ"));
+        assertThat(sodaFromMap.getPrice(), is(150));
 
     }
 
     /**
-     * getProductメソッドのテスト 「ミックスオレ」の商品情報取得に成功.
-     * 
+     * getProductメソッドのテスト 「ミックスオレ」の商品情報取得に成功
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
     public void getMixSuccess() throws WrongProductNumberException {
         Storage storage = new Storage();
         Product mix = new Product(3, "ミックスオレ", 160);
-        storage.chargeProduct(mix);
-        Product mixFromList = storage.getProduct(1);
+        storage.addProductInfo(mix.getNum(), mix);
+        Product mixFromMap = storage.getProduct(mix.getNum());
 
-        assertThat(mixFromList.getNum(), is(3));
-        assertThat(mixFromList.getName(), is("ミックスオレ"));
-        assertThat(mixFromList.getPrice(), is(160));
+        assertThat(mixFromMap.getNum(), is(3));
+        assertThat(mixFromMap.getName(), is("ミックスオレ"));
+        assertThat(mixFromMap.getPrice(), is(160));
     }
 
     /**
-     * getProductメソッドのテスト 商品番号として存在していない整数を引数に渡すと、例外が発生し正常に商品情報を取得できない.
-     * 
+     * getProductメソッドのテスト 商品番号として存在していない整数を引数に渡すと、例外が発生し正常に商品情報を取得できない
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test(expected = WrongProductNumberException.class)
@@ -87,7 +87,7 @@ public class StorageTest {
     }
 
     /**
-     * chargeStockメソッドのテスト サンプルに無い商品の在庫を追加する.
+     * chargeStockメソッドのテスト サンプルに無い商品の在庫を追加する
      */
     @Test
     public void chargeStockSuccess() {
@@ -98,7 +98,7 @@ public class StorageTest {
     /**
      * getStockメソッドのテスト
      *
-     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生.
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
     public void getWaterStock() throws WrongProductNumberException {
@@ -125,9 +125,9 @@ public class StorageTest {
     }
 
     /**
-     * getStockメソッドのテスト productInfoMapに存在しない商品番号(キー)を指定した場合.
-     * 
-     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     * getStockメソッドのテスト productInfoMapに存在しない商品番号(キー)を指定した場合
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生.
      */
     @Test(expected = WrongProductNumberException.class)
     public void getStockFailure() throws WrongProductNumberException {
@@ -137,8 +137,8 @@ public class StorageTest {
     //
 
     /**
-     * reduceStockメソッドのテスト 商品番号を指定して、在庫が1減らされることを確認.
-     * 
+     * reduceStockメソッドのテスト 商品番号を指定して、在庫が1減らされることを確認
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
@@ -156,7 +156,7 @@ public class StorageTest {
 
     /**
      * reduceStockメソッドのテスト 商品番号「9」を指定して、存在しない商品に対して在庫を減らす処理が出来ないことを確認.
-     * 
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test(expected = WrongProductNumberException.class)

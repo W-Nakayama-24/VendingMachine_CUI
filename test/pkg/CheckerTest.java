@@ -12,7 +12,7 @@ import org.junit.Test;
 public class CheckerTest {
 
     /**
-     * 希望金額が1000円,投入金額が0円のとき,加算後に上限の9990円を超えないのでtrueを返す.
+     * 希望金額が1000円,投入金額が0円のとき,加算後に上限の9990円を超えないのでtrueを返す
      */
     @Test
     public void successFromZero() {
@@ -22,7 +22,7 @@ public class CheckerTest {
     }
 
     /**
-     * 希望金額が1000円,投入金額が1000円のとき,加算後に上限の9990円を超えないのでtrueを返す.
+     * 希望金額が1000円,投入金額が1000円のとき,加算後に上限の9990円を超えないのでtrueを返す
      */
     @Test
     public void successFromNotZero() {
@@ -32,7 +32,7 @@ public class CheckerTest {
     }
 
     /**
-     * 希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す.
+     * 希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す
      */
     @Test
     public void depositExcess() {
@@ -42,7 +42,7 @@ public class CheckerTest {
     }
 
     /**
-     * 希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す.
+     * 希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す
      */
     @Test
     public void reachMaxDeposit() {
@@ -52,8 +52,8 @@ public class CheckerTest {
     }
 
     /**
-     * 指定した商品がおいしい水(water)で、投入金額が100円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す.
-     * 
+     * 指定した商品がおいしい水(water)で、投入金額が100円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
@@ -66,8 +66,8 @@ public class CheckerTest {
     }
 
     /**
-     * 指定した商品がおいしい水(water)で、投入金額が99円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す.
-     * 
+     * 指定した商品がおいしい水(water)で、投入金額が99円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
@@ -81,7 +81,7 @@ public class CheckerTest {
 
     @Test
     /**
-     * 指定した商品がサイコソーダ(soda)で、投入金額が150円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す.
+     * 指定した商品がサイコソーダ(soda)で、投入金額が150円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す
      *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
@@ -94,8 +94,8 @@ public class CheckerTest {
 
     @Test
     /**
-     * 指定した商品がサイコソーダ(soda)で、投入金額が149円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す.
-     * 
+     * 指定した商品がサイコソーダ(soda)で、投入金額が149円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     public void isNotSodaAvairable() throws WrongProductNumberException {
@@ -106,8 +106,8 @@ public class CheckerTest {
     }
 
     /**
-     * 指定した商品がミックスオレ(mix)で、投入金額が160円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す.
-     * 
+     * 指定した商品がミックスオレ(mix)で、投入金額が160円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
@@ -119,8 +119,8 @@ public class CheckerTest {
     }
 
     /**
-     * 指定した商品がミックスオレ(mix)で、投入金額が159円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す.
-     * 
+     * 指定した商品がミックスオレ(mix)で、投入金額が159円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
