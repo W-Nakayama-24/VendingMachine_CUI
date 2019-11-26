@@ -1,53 +1,38 @@
 package pkg;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Storage {
 
-    Map<Integer, Integer> stockMap;
-    Product[] productInfo = new Product[3];
+    List<Product> productList = new ArrayList<Product>();
+    Map<Integer, Integer> stockMap = new HashMap<Integer, Integer>();
 
-    public void initProduct() {
-
-        Product water = new Product(1, "おいしい水", 100);
-        Product soda = new Product(2, "サイコソーダ", 150);
-        Product mix = new Product(3, "ミックスオレ", 160);
-
-        productInfo[0] = water;
-        productInfo[1] = soda;
-        productInfo[2] = mix;
+    public void chargeProduct(Product product) {
+        productList.add(product);
     }
 
-    public void initStorage() {
-        stockMap = new HashMap<Integer, Integer>();
-
-        stockMap.put(1, 12);
-        stockMap.put(2, 5);
-        stockMap.put(3, 1);
+    public void chargeStock(Integer num, Integer stock) {
+        stockMap.put(num, stock);
     }
 
     Product getProduct(int num) throws WrongProductNumberException {
-        if (num <= productInfo.length) {
-            Product pr = productInfo[num - 1];
-            return pr;
-        } else {
-            throw new WrongProductNumberException("存在しない商品番号がリクエストされています");
-        }
-
+        Product pr = productList.get(num - 1);
+        return pr;
     }
 
     int getStock(int num) throws WrongProductNumberException {
-        if (num <= stockMap.size()) {
-            int stock = stockMap.get(num);
-            return stock;
-        } else {
-            throw new WrongProductNumberException("存在しない商品番号がリクエストされています");
-        }
+        int stock = stockMap.get(num);
+        return stock;
     }
 
-    void reduceStock(int num) throws WrongProductNumberException {
-        stockMap.put(num, getStock(num) - 1);
+    int reduceStock(int num) throws WrongProductNumberException {
+        int afterReduce = getStock(num) - 1;
+        stockMap.put(num, afterReduce);
+
+        return afterReduce;
     }
 
 }
