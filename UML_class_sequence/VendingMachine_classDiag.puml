@@ -27,8 +27,8 @@ class UserInterface {
 class 自動販売機 {
     +int 投入金額
     --
-    +void 商品情報を追加する()
-    +void 在庫を補充する()
+    +void 商品情報を追加する(Integer 商品番号, Product 商品情報)
+    +void 在庫を補充する(Integer 商品番号, Integer 在庫数)
 
     +boolean お金を投入する(int 希望金額)
     +BuyResult 商品を購入する(int 商品番号)
@@ -66,8 +66,8 @@ class Storage {
     +Product<Integer 商品番号, Product 商品情報> 商品情報マップ
     +Map<Integer 商品番号, Integer 在庫数> 在庫数マップ
     --
-    +void 商品情報を商品情報マップに追加する(Integer 商品番号, Product 商品情報)
-    +void 在庫数を在庫数マップに追加する(Integer 商品番号, Integer 在庫数)
+    +void 商品情報を追加する(Integer 商品番号, Product 商品情報)
+    +void 在庫を補充する(Integer 商品番号, Integer 在庫数)
     +Product get商品情報(int 商品番号)
     +int get在庫数(int 商品番号)
     +void 在庫数を減らす(int 商品番号)
