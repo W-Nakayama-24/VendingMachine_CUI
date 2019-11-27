@@ -2,33 +2,10 @@
 title 自販機システム_UC01お金を投入する
 
 actor 利用者
-
-activate UserInterface
-
 note over UserInterface #Cyan
-[初期画面の表示]
+[初期画面を表示する]
+※シーケンス図「自販機システム_初期画面を表示する」を参照
 end note
-UserInterface -> 自動販売機 : 自動販売機.get投入金額()
-activate 自動販売機
-deactivate 自動販売機
-UserInterface <- UserInterface : 初期画面を表示する()
-    note over UserInterface
-    商品番号 / 商品名 / 単価  / 在庫
-    1 / おいしい水   / 100円 / 残り12本
-    2 / サイコソーダ / 150円 / 残り5本
-    3 / ミックスオレ / 160円 / 残り0本
-
-    投入金額 [   0]円
-
-
-    機能を選択してください
-    [1] お金を投入する
-    [2] 商品を購入する
-    [3] 返金を受け取る
-    [9] システムを終了する
-    end note
-deactivate UserInterface
-
 
 利用者 -> UserInterface : 1を入力
 activate UserInterface
@@ -54,11 +31,12 @@ alt 正しい入力 (1000,500,100,50,10のいずれかの整数)
 
 UserInterface -> 自動販売機 : 自動販売機.お金を投入する(int 希望金額)
 activate 自動販売機
-自動販売機 -> checker : new
-activate checker
 
-自動販売機 -> checker : checker.上限チェック(int 希望金額, int 投入金額)
-deactivate checker
+
+自動販売機 -> チェッカー : チェッカー.上限チェック(int 希望金額, int 投入金額)
+activate チェッカー
+自動販売機 <-- チェッカー : true/false
+deactivate チェッカー
 
 alt 上限チェックがfalse
 自動販売機 <- 自動販売機 : [int 希望金額]を利用者に返却する
@@ -90,7 +68,7 @@ UserInterface <- UserInterface : エラーメッセージ01を表示
 end
 
 note over UserInterface #Cyan
-[初期画面の表示]へ戻る
+[初期画面を表示する]へ戻る
 end note
 
 @enduml
