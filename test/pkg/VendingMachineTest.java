@@ -45,8 +45,8 @@ public class VendingMachineTest {
 
     @Test
     /**
-     * get在庫数のテスト storageのstockMapから正しく在庫数を取得できるか確認する @throws
-     * 
+     * get在庫数のテスト storageのstockMapから正しく在庫数を取得できるか確認する
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     public void getWaterStock() throws WrongProductNumberException {
@@ -73,10 +73,9 @@ public class VendingMachineTest {
     }
 
     /**
-     * 存在しない商品番号を指定した場合、 対応する番号を持った商品が見つからなかった結果nullを返却する
-     * 商品番号が正しくないことを伝えるため、WrongProductNumberExcpetionが発生
-     * 
-     * @throws WrongProductNumberException
+     * get在庫数のテスト 存在しない商品番号を指定した場合、例外が発生し在庫数を正常に取得できない
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test(expected = WrongProductNumberException.class)
     public void getStockFailure() throws WrongProductNumberException {
@@ -137,9 +136,8 @@ public class VendingMachineTest {
     }
 
     /**
-     * 存在しない商品番号を指定した場合、不正なインデックスを使って配列にアクセスしてしまう
-     * 商品番号が正しくないことを伝えるため、WrongProductNumberExcpetionが発生
-     * 
+     * getProductメソッドのテスト 商品番号として存在していない整数を引数に渡すと、例外が発生し正常に商品情報を取得できない
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test(expected = WrongProductNumberException.class)
@@ -148,10 +146,10 @@ public class VendingMachineTest {
         vm.getProduct(9);
     }
 
-    @Test
     /**
      * お金投入のテスト 希望金額1000円で上限チェックがOKのとき、trueを返す 投入金額が希望金額の分だけ増える
      */
+    @Test
     public void insertSuccess() {
         VendingMachine vm = new VendingMachine();
         int getterTestResult = 0;
@@ -164,10 +162,10 @@ public class VendingMachineTest {
         assertThat(getterTestResult, is(requestMoney));
     }
 
-    @Test
     /**
      * お金投入のテスト 希望金額9991円で上限チェックがNGのとき、 falseを返す投入金額が変化していない
      */
+    @Test
     public void insertFailure() {
         VendingMachine vm = new VendingMachine();
         int getResultBefore = 0;
@@ -183,12 +181,12 @@ public class VendingMachineTest {
         assertThat(getResultAfter, is(getResultBefore));
     }
 
-    @Test
     /**
-     * 商品購入に成功 指定した商品の在庫がある 投入金額も足りているとき、trueを返す 投入金額が購入できた商品の単価分だけ減っている,在庫が1本減っている
+     * 商品購入に成功 指定した商品の在庫がある・投入金額も足りている場合、trueを返す 投入金額が購入できた商品の単価分だけ減っている,在庫が1本減っている
      * 
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
+    @Test
     public void buySuccess() throws WrongProductNumberException {
         VendingMachine vm = new VendingMachine();
 
@@ -207,12 +205,12 @@ public class VendingMachineTest {
         assertThat(vm.getStock(1), is(stockBeforeBuy - 1));
     }
 
-    @Test
     /**
-     * 商品購入に失敗 指定した商品の在庫はある 投入金額が足りていない falseを返す 投入金額と在庫が変化していないことも確認
-     * 
+     * 商品購入に失敗 指定した商品の在庫はある・投入金額が足りていない場合 falseを返す 投入金額と在庫が変化していないことも確認
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
+    @Test
     public void notEnoughMoney() throws WrongProductNumberException {
         VendingMachine vm = new VendingMachine();
         Product water = new Product(1, "おいしい水", 100);
@@ -230,12 +228,12 @@ public class VendingMachineTest {
         assertThat(vm.getStock(1), is(stockBeforeBuy));
     }
 
-    @Test
     /**
-     * 商品購入に失敗 指定した商品の在庫がない 投入金額は足りている falseを返す 投入金額と在庫が変化していないことも確認
-     * 
+     * 商品購入に失敗 指定した商品の在庫がない・投入金額は足りている場合 falseを返す 投入金額と在庫が変化していないことも確認
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
+    @Test
     public void notEnoughStock() throws WrongProductNumberException {
         VendingMachine vm = new VendingMachine();
         Product water = new Product(1, "おいしい水", 100);
@@ -253,12 +251,12 @@ public class VendingMachineTest {
         assertThat(vm.getStock(1), is(stockBeforeBuy));
     }
 
-    @Test
     /**
-     * 商品購入に失敗 指定した商品の在庫はない 投入金額も足りていない falseを返す 投入金額と在庫が変化していないことも確認
-     * 
+     * 商品購入に失敗 指定した商品の在庫はない・投入金額も足りていない場合 falseを返す 投入金額と在庫が変化していないことも確認
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
+    @Test
     public void notEnoughStockAndMoney() throws WrongProductNumberException {
         VendingMachine vm = new VendingMachine();
 
@@ -278,9 +276,9 @@ public class VendingMachineTest {
     }
 
     /**
-     * 商品購入に失敗 存在する商品番号以外の整数を引数に渡したとき WrongProductNumberExcpetionが発生
-     * 
-     * @throws WrongProductNumberException
+     * 商品購入に失敗 存在する商品番号以外の整数を引数に渡した場合 例外が発生する
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test(expected = WrongProductNumberException.class)
     public void requestWrongNumber() throws WrongProductNumberException {
