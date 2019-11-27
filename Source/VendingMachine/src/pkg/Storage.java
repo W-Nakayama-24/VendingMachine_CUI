@@ -19,7 +19,7 @@ public class Storage {
     }
 
     Product getProduct(int num) throws WrongProductNumberException {
-        Product pr = productList.get(num - 1);
+        Product pr = productList.get(num);
         return pr;
     }
 
