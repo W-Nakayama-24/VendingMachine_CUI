@@ -3,15 +3,36 @@ title 自販機システム_初期画面を表示する
 
 actor 利用者
 activate UserInterface
-UserInterface -> 自動販売機 : 自動販売機.get投入金額()
+UserInterface -> Product : 3種類のサンプル商品をnew ※
+activate Product
+deactivate Product
+UserInterface -> 自動販売機 : 商品情報を追加する(Integer 商品番号, Product 商品情報) ※
 activate 自動販売機
-UserInterface <-- 自動販売機 : int 投入金額
+自動販売機 -> Storage : 商品情報を追加する(Integer 商品番号, Product 商品情報) ※
+activate Storage
+deactivate Storage
 deactivate 自動販売機
 
+UserInterface -> 自動販売機 : 在庫を補充する(Integer 商品番号, Integer 在庫数) ※
+activate 自動販売機
+自動販売機 -> Storage : 在庫を補充する(Integer 商品番号, Integer 在庫数) ※
+activate Storage
+deactivate Storage
+deactivate 自動販売機
+
+note right of Storage
+※[商品情報,在庫数の初期化]
+システム始動 ~ 1回目の初期画面表示の間に
+1度だけ実行される。
+end note
+
+note over UserInterface #Cyan
+[初期画面を表示する]
+end note 
 loop 登録している商品番号をすべて使って実施
 UserInterface -> 自動販売機 : 自動販売機.get在庫数(int 商品番号)
 activate 自動販売機
-自動販売機 -> Storage : Storage.get在庫数(int 商品番号)
+自動販売機 -> Storage : storage.get在庫数(int 商品番号)
 activate Storage
 自動販売機 <-- Storage : int 在庫数
 deactivate Storage
@@ -20,7 +41,7 @@ deactivate 自動販売機
 
 UserInterface -> 自動販売機 : 自動販売機.get商品情報(int 商品番号)
 activate 自動販売機
-自動販売機 -> Storage : Storage.get商品情報(int 商品番号)
+自動販売機 -> Storage : storage.get商品情報(int 商品番号)
 activate Storage
 
 note over Storage
@@ -42,6 +63,11 @@ deactivate 自動販売機
 ' deactivate Product 
 
 end
+
+UserInterface -> 自動販売機 : 自動販売機.get投入金額()
+activate 自動販売機
+UserInterface <-- 自動販売機 : int 投入金額
+deactivate 自動販売機
 
 UserInterface <- UserInterface : 初期画面を表示する()
 note over UserInterface

@@ -4,6 +4,7 @@ title 自販機システム_UC01お金を投入する
 actor 利用者
 note over UserInterface #Cyan
 [初期画面を表示する]
+※シーケンス図「自販機システム_初期画面を表示する」を参照
 end note
 
 利用者 -> UserInterface : 1を入力
