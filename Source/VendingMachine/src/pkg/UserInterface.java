@@ -1,21 +1,49 @@
 package pkg;
 
 import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class UserInterface {
 
     int requestMoney = 0; // 希望金額
+    int requestProductNum = 0; // 商品番号
 
     VendingMachine vm = new VendingMachine();
+
     Scanner sc = new Scanner(System.in);
 
+    // 商品補充に使うメソッドを利用して、サンプル商品と在庫数を用意する
+    UserInterface() {
+        Product water = new Product(1, "おいしい水", 100);
+        Product soda = new Product(2, "サイコソーダ", 150);
+        Product mix = new Product(3, "ミックスオレ", 160);
+        vm.addProductInfo(water.getNum(), water);
+        vm.addProductInfo(soda.getNum(), soda);
+        vm.addProductInfo(mix.getNum(), mix);
+
+        vm.chargeStock(water.getNum(), 12);
+        vm.chargeStock(soda.getNum(), 5);
+        vm.chargeStock(mix.getNum(), 1);
+    }
+
     // 初期画面を表示する
-    public void display() {
+    public void display() throws WrongProductNumberException {
+        Product water = vm.getProduct(1);
+        int waterStock = vm.getStock(1);
+
+        Product soda = vm.getProduct(2);
+        int sodaStock = vm.getStock(2);
+
+        Product mix = vm.getProduct(3);
+        int mixStock = vm.getStock(3);
+
         System.out.println("商品番号 / 商品名 / 単価 / 在庫");
         System.out.println();
-        System.out.println("===商品準備中===");
+        System.out.println(
+                water.getNum() + " / " + water.getName() + " / " + water.getPrice() + "円 / 残り" + waterStock + "本");
+        System.out
+                .println(soda.getNum() + " / " + soda.getName() + " / " + soda.getPrice() + "円 / 残り" + sodaStock + "本");
+        System.out.println(mix.getNum() + " / " + mix.getName() + " / " + mix.getPrice() + "円 / 残り" + mixStock + "本");
         System.out.println();
         System.out.println("投入金額 [ " + vm.getDeposit() + " ]円");
         System.out.println();
@@ -25,10 +53,11 @@ public class UserInterface {
         System.out.println("[3]返金を受け取る");
         System.out.println("[9]システムを終了する");
         System.out.println();
+
     }
 
     // 機能を呼び出す
-    public void callFunction() {
+    public void callFunction() throws WrongProductNumberException {
         System.out.print("input 機能番号>>");
 
         try {
@@ -39,12 +68,42 @@ public class UserInterface {
                 inputRequestMoney();
                 break;
             case 2:
-                System.out.println("---[2]商品を購入する機能 は準備中です---");
-                break;
+                boolean checkAllStockResult = false;
+                int stock;
+                for (int i = 1; i < vm.storage.stockMap.size(); i++) {
+                    stock = vm.getStock(i);
+                    if (stock != 0) {
+                        checkAllStockResult = true; // 在庫数が1以上の商品が1つでもあれば、trueに切り替える
+                    }
+                }
+                if (checkAllStockResult == true) {
+                    Product water = vm.getProduct(1);
+                    Product soda = vm.getProduct(2);
+                    Product mix = vm.getProduct(3);
+
+                    vm.getProduct(1).getNum();
+                    System.out.println("---[2]商品を購入する---");
+                    System.out.println("商品番号を入力してください");
+                    System.out.println(water.getNum() + " / " + water.getName() + " / " + water.getPrice() + "円");
+                    System.out.println(soda.getNum() + " / " + soda.getName() + " / " + soda.getPrice() + "円");
+                    System.out.println(mix.getNum() + " / " + mix.getName() + " / " + mix.getPrice() + "円");
+
+                    inputProductNum();
+                    break;
+                } else {
+                    System.out.println("ERROR_03:すべての商品が売り切れています");
+                    break;
+                }
             case 3:
                 System.out.println("---[3]返金を受け取る機能 は準備中です---");
                 System.out.println("(現在、簡易版の機能を実装しています 11/06)");
-                vm.receiveChange();
+                int change = vm.receiveChange();
+                if (change != 0) {
+                    System.out.println("[" + change + " ]円を返却しました");
+                } else {
+                    System.out.println("ERROR_07:返却できるお金がありません");
+                    System.out.println("お金を追加してください(1000, 500, 100, 50, 10)");
+                }
                 break;
             case 9:
                 System.out.println("---[9]システムを終了する機能 は準備中です---");
@@ -54,18 +113,18 @@ public class UserInterface {
                     vm.quitSystem();
                     break;
                 } else {
-                    System.out.println("ERROR_08 システムに投入金額が残っています");
+                    System.out.println("ERROR_08:システムに投入金額が残っています");
                     System.out.println("[3]を入力すると投入金額を返却します");
                     break;
                 }
             default:
-                System.out.println("ERROR_00 正しく入力してください");
+                System.out.println("ERROR_00:正しく入力してください");
                 System.out.println("(1,2,3,9のいずれかを入力して機能を選択します)");
                 break;
             }
         } catch (InputMismatchException ex) {
             ex.printStackTrace();
-            System.out.println("ERROR_00 正しく入力してください");
+            System.out.println("ERROR_00:正しく入力してください");
             System.out.println("(1,2,3,9のいずれかを入力して機能を選択します)");
             sc.nextLine(); // バッファに入ったままの不正入力をクリアーする
         }
@@ -87,7 +146,7 @@ public class UserInterface {
                         System.out.println("[ " + requestMoney + " ]円を投入しました");
                         break;
                     } else {
-                        System.out.println("ERROR_02 投入できる金額の上限は"+ DepositExcessChecker.maxOfDeposit +"円です");
+                        System.out.println("ERROR_02:投入できる金額の上限は" + Checker.maxOfDeposit + "円です");
                         System.out.println("[ " + requestMoney + " ]円を返却しました");
                         break;
                     }
@@ -104,4 +163,38 @@ public class UserInterface {
             }
         }
     }
+
+    // 購入したい商品の番号を入力する
+    public void inputProductNum() throws WrongProductNumberException {
+        System.out.print("input 購入したい商品の番号>>");
+        try {
+            requestProductNum = sc.nextInt();
+            if (vm.storage.productInfoMap.containsKey(requestProductNum) == true) {
+                switch (vm.buyProduct(requestProductNum)) {
+                case SUCCESS:
+                    System.out.println("---お買い上げありがとうございます---");
+                    System.out.println(vm.storage.getProduct(requestProductNum).getName() + " を購入しました");
+                    break;
+                case NOT_ENOUGH_MONEY:
+                    System.out.println("ERROR_05:投入金額が不足しています");
+                    System.out.println("お金を投入してください");
+                    break;
+                case ZERO_STOCK:
+                    System.out.println("ERROR_06:ご指定の商品は売り切れています");
+                    break;
+                }
+            } else {
+                System.out.println("ERROR_04:存在しない商品番号です");
+                System.out.println("正しく入力してください");
+                System.out.println();
+            }
+
+        } catch (InputMismatchException ex) {
+            ex.printStackTrace();
+            System.out.println("ERROR_04:存在しない商品番号です");
+            System.out.println("正しく入力してください");
+            sc.nextLine(); // バッファに入ったままの不正入力をクリアーする
+        }
+    }
+
 }
