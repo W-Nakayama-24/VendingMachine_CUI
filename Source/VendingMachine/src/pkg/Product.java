@@ -1,10 +1,5 @@
 package pkg;
 
-/**
- * @author z00s600160
- *
- */
-
 public class Product {
 
     private int num;

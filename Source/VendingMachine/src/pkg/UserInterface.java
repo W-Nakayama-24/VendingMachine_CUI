@@ -81,7 +81,6 @@ public class UserInterface {
                     Product soda = vm.getProduct(2);
                     Product mix = vm.getProduct(3);
 
-                    vm.getProduct(1).getNum();
                     System.out.println("---[2]商品を購入する---");
                     System.out.println("商品番号を入力してください");
                     System.out.println(water.getNum() + " / " + water.getName() + " / " + water.getPrice() + "円");
