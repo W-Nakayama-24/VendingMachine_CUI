@@ -1,8 +1,6 @@
 package pkg;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Storage {
@@ -19,20 +17,32 @@ public class Storage {
     }
 
     Product getProduct(int num) throws WrongProductNumberException {
-        Product pr = productInfoMap.get(num);
-        return pr;
+        if (productInfoMap.containsKey(num) == true) {
+            Product pr = productInfoMap.get(num);
+            return pr;
+        } else {
+            throw new WrongProductNumberException("存在しない商品番号がリクエストされています");
+        }
+
     }
 
     int getStock(int num) throws WrongProductNumberException {
-        int stock = stockMap.get(num);
-        return stock;
+        if (stockMap.containsKey(num) == true) {
+            int stock = stockMap.get(num);
+            return stock;
+        } else {
+            throw new WrongProductNumberException("存在しない商品番号がリクエストされています");
+        }
     }
 
     int reduceStock(int num) throws WrongProductNumberException {
-        int afterReduce = getStock(num) - 1;
-        stockMap.put(num, afterReduce);
-
-        return afterReduce;
+        if (stockMap.containsKey(num) == true) {
+            int afterReduce = getStock(num) - 1;
+            stockMap.put(num, afterReduce);
+            return afterReduce;
+        } else {
+            throw new WrongProductNumberException("存在しない商品番号がリクエストされています");
+        }
     }
 
 }
