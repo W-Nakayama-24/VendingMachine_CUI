@@ -5,103 +5,129 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+/**
+ * @author W-Nakayama
+ *
+ */
 public class CheckerTest {
 
+    /**
+     * 希望金額が1000円,投入金額が0円のとき,加算後に上限の9990円を超えないのでtrueを返す
+     */
     @Test
-    // 希望金額が1000円,投入金額が0円のとき,加算後に上限の9990円を超えないのでtrueを返す
     public void successFromZero() {
         Checker dexchecker = new Checker();
         boolean checkResult = dexchecker.checkDepositExcess(1000, 0);
         assertThat(checkResult, is(true));
     }
 
+    /**
+     * 希望金額が1000円,投入金額が1000円のとき,加算後に上限の9990円を超えないのでtrueを返す
+     */
     @Test
-    // 希望金額が1000円,投入金額が1000円のとき,加算後に上限の9990円を超えないのでtrueを返す
     public void successFromNotZero() {
         Checker dexchecker = new Checker();
         boolean checkResult = dexchecker.checkDepositExcess(1000, 1000);
         assertThat(checkResult, is(true));
     }
 
+    /**
+     * 希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す
+     */
     @Test
-    // 希望金額が1円,投入金額が9990円のとき,加算後に上限の9990円を超えるのでfalseを返す
     public void depositExcess() {
         Checker dexchecker = new Checker();
         boolean checkResult = dexchecker.checkDepositExcess(1, 9990);
         assertThat(checkResult, is(false));
     }
 
+    /**
+     * 希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す
+     */
     @Test
-    // 希望金額が1円,投入金額が9989円のとき,加算後にちょうど上限の9990円となり,trueを返す
     public void reachMaxDeposit() {
         Checker dexchecker = new Checker();
         boolean checkResult = dexchecker.checkDepositExcess(1, 9990 - 1);
         assertThat(checkResult, is(true));
     }
 
+    /**
+     * 指定した商品がおいしい水(water)で、投入金額が100円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     */
     @Test
-    // 指定した商品がおいしい水(water)で、投入金額が100円のとき
-    // 投入金額が単価と同じなので、チェッカーはtrueを返す
-    public void isWaterAvairable() {
+
+    public void isWaterAvairable() throws WrongProductNumberException {
         Checker affchecker = new Checker();
-        Storage storage = new Storage();
-        Product product = storage.getProduct(1);
-        boolean checkResult = affchecker.checkCanAfford(product, 100);
+        Product water = new Product(1, "おいしい水", 100);
+        boolean checkResult = affchecker.checkCanAfford(water, 100);
         assertThat(checkResult, is(true));
     }
 
+    /**
+     * 指定した商品がおいしい水(water)で、投入金額が99円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     */
     @Test
-    // 指定した商品がおいしい水(water)で、投入金額が99円のとき
-    // 投入金額が単価を下回るので、チェッカーはfalseを返す
-    public void isNotWaterAvairable() {
+
+    public void isNotWaterAvairable() throws WrongProductNumberException {
         Checker affchecker = new Checker();
-        Storage storage = new Storage();
-        Product product = storage.getProduct(1);
-        boolean checkResult = affchecker.checkCanAfford(product, 100 - 1);
+        Product water = new Product(1, "おいしい水", 100);
+        boolean checkResult = affchecker.checkCanAfford(water, 100 - 1);
         assertThat(checkResult, is(false));
     }
 
     @Test
-    // 指定した商品がサイコソーダ(water)で、投入金額が150円のとき
-    // 投入金額が単価と同じなので、チェッカーはtrueを返す
-    public void isSodaAvairable() {
+    /**
+     * 指定した商品がサイコソーダ(soda)で、投入金額が150円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     */
+    public void isSodaAvairable() throws WrongProductNumberException {
         Checker affchecker = new Checker();
-        Storage storage = new Storage();
-        Product product = storage.getProduct(2);
-        boolean checkResult = affchecker.checkCanAfford(product, 150);
+        Product soda = new Product(2, "サイコソーダ", 150);
+        boolean checkResult = affchecker.checkCanAfford(soda, 150);
         assertThat(checkResult, is(true));
     }
 
     @Test
-    // 指定した商品がサイコソーダ(soda)で、投入金額が149円のとき
-    // 投入金額が単価を下回るので、チェッカーはfalseを返す
-    public void isNotSodaAvairable() {
+    /**
+     * 指定した商品がサイコソーダ(soda)で、投入金額が149円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     */
+    public void isNotSodaAvairable() throws WrongProductNumberException {
         Checker affchecker = new Checker();
-        Storage storage = new Storage();
-        Product product = storage.getProduct(2);
-        boolean checkResult = affchecker.checkCanAfford(product, 150 - 1);
+        Product soda = new Product(2, "サイコソーダ", 150);
+        boolean checkResult = affchecker.checkCanAfford(soda, 150 - 1);
         assertThat(checkResult, is(false));
     }
 
+    /**
+     * 指定した商品がミックスオレ(mix)で、投入金額が160円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     */
     @Test
-    // 指定した商品がミックスオレ(mix)で、投入金額が160円のとき
-    // 投入金額が単価と同じなので、チェッカーはtrueを返す
-    public void isMixAulaitAvairable() {
+    public void isMixAulaitAvairable() throws WrongProductNumberException {
         Checker affchecker = new Checker();
-        Storage storage = new Storage();
-        Product product = storage.getProduct(3);
-        boolean checkResult = affchecker.checkCanAfford(product, 160);
+        Product mix = new Product(3, "ミックスオレ", 160);
+        boolean checkResult = affchecker.checkCanAfford(mix, 160);
         assertThat(checkResult, is(true));
     }
 
+    /**
+     * 指定した商品がミックスオレ(mix)で、投入金額が159円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     */
     @Test
-    // 指定した商品がミックスオレ(mix)で、投入金額が159円のとき
-    // 投入金額が単価を下回るので、チェッカーはfalseを返す
-    public void isNotMixAulaitAvairable() {
+    public void isNotMixAulaitAvairable() throws WrongProductNumberException {
         Checker affchecker = new Checker();
-        Storage storage = new Storage();
-        Product product = storage.getProduct(3);
-        boolean checkResult = affchecker.checkCanAfford(product, 160 - 1);
+        Product mix = new Product(3, "ミックスオレ", 160);
+        boolean checkResult = affchecker.checkCanAfford(mix, 160 - 1);
         assertThat(checkResult, is(false));
     }
 
