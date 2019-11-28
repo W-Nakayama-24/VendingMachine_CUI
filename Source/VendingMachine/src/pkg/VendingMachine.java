@@ -15,9 +15,14 @@ public class VendingMachine {
         return deposit;
     }
 
-    // 商品情報を追加する
+    // 商品情報を追加する(商品情報のみ 在庫数はいったん0をセットする)
     public void addProductInfo(Integer num, Product product) {
         storage.addProductInfo(num, product);
+    }
+
+    // 商品情報を追加する(第三引数で在庫数も指定すると、商品情報とともにセットする)
+    public void addProductInfo(Integer num, Product product, Integer stock) {
+        storage.addProductInfo(num, product, stock);
     }
 
     // 在庫を補充する
