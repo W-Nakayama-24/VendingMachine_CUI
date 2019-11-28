@@ -30,8 +30,34 @@ public class VendingMachineTest {
     @Test
     public void addProductInfoSuccess() throws WrongProductNumberException {
         VendingMachine vm = new VendingMachine();
-        Product productForTest = new Product(4, "テスト用商品", 500);
+        Product productForTest = new Product(4, "テスト用商品 在庫なし", 400);
         vm.addProductInfo(productForTest.getNum(), productForTest);
+
+        Product productFromMap = vm.getProduct(productForTest.getNum());
+
+        assertThat(productFromMap.getNum(), is(4));
+        assertThat(productFromMap.getName(), is("テスト用商品 在庫なし"));
+        assertThat(productFromMap.getPrice(), is(400));
+        assertThat(vm.getStock(productFromMap.getNum()), is(0));
+    }
+
+    /**
+     * addProductIndoメソッド(オーバーロード使用)のテスト 第三引数で在庫数を指定し、商品情報とともにセットする
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     */
+    @Test
+    public void addProductInfoAndStock() throws WrongProductNumberException {
+        VendingMachine vm = new VendingMachine();
+        Product productForTest = new Product(5, "テスト用商品 在庫9999", 500);
+        vm.addProductInfo(productForTest.getNum(), productForTest, 9999);
+
+        Product productFromMap = vm.getProduct(productForTest.getNum());
+
+        assertThat(productFromMap.getNum(), is(5));
+        assertThat(productFromMap.getName(), is("テスト用商品 在庫9999"));
+        assertThat(productFromMap.getPrice(), is(500));
+        assertThat(vm.getStock(productFromMap.getNum()), is(9999));
     }
 
     /**
@@ -183,7 +209,7 @@ public class VendingMachineTest {
 
     /**
      * 商品購入に成功 指定した商品の在庫がある・投入金額も足りている場合、trueを返す 投入金額が購入できた商品の単価分だけ減っている,在庫が1本減っている
-     * 
+     *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
