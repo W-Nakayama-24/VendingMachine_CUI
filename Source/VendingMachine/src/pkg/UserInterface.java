@@ -12,7 +12,8 @@ public class UserInterface {
 
     Scanner sc = new Scanner(System.in);
 
-    // 商品補充に使うメソッドを利用して、サンプル商品と在庫数を用意する
+    // 商品補充に使うメソッドを使い回して、サンプル商品と在庫数を用意する
+    // 最初に、サンプル3商品の商品情報と在庫数をセット(ここは繰り返し実施しないので、コンストラクタを使用)
     UserInterface() {
         Product water = new Product(1, "おいしい水", 100);
         Product soda = new Product(2, "サイコソーダ", 150);
@@ -69,9 +70,7 @@ public class UserInterface {
                 break;
             case 2:
                 boolean checkAllStockResult = false;
-                int stock;
-                for (int i = 1; i < vm.storage.stockMap.size(); i++) {
-                    stock = vm.getStock(i);
+                for (int stock : vm.storage.stockMap.values()) {
                     if (stock != 0) {
                         checkAllStockResult = true; // 在庫数が1以上の商品が1つでもあれば、trueに切り替える
                     }
