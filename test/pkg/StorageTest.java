@@ -19,8 +19,34 @@ public class StorageTest {
     @Test
     public void addProductInfoSuccess() throws WrongProductNumberException {
         Storage storage = new Storage();
-        Product productForTest = new Product(4, "テスト用商品", 500);
+        Product productForTest = new Product(4, "テスト用商品 在庫なし", 400);
         storage.addProductInfo(productForTest.getNum(), productForTest);
+
+        Product productFromMap = storage.getProduct(productForTest.getNum());
+
+        assertThat(productFromMap.getNum(), is(4));
+        assertThat(productFromMap.getName(), is("テスト用商品 在庫なし"));
+        assertThat(productFromMap.getPrice(), is(400));
+        assertThat(storage.getStock(productFromMap.getNum()), is(0));
+    }
+
+    /**
+     * addProductIndoメソッド(オーバーロード使用)のテスト 第三引数で在庫数を指定し、商品情報とともにセットする
+     *
+     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     */
+    @Test
+    public void addProductInfoAndStock() throws WrongProductNumberException {
+        Storage storage = new Storage();
+        Product productForTest = new Product(5, "テスト用商品 在庫9999", 500);
+        storage.addProductInfo(productForTest.getNum(), productForTest, 9999);
+
+        Product productFromMap = storage.getProduct(productForTest.getNum());
+
+        assertThat(productFromMap.getNum(), is(5));
+        assertThat(productFromMap.getName(), is("テスト用商品 在庫9999"));
+        assertThat(productFromMap.getPrice(), is(500));
+        assertThat(storage.getStock(productFromMap.getNum()), is(9999));
     }
 
     /**
@@ -38,6 +64,7 @@ public class StorageTest {
         assertThat(waterFromMap.getNum(), is(1));
         assertThat(waterFromMap.getName(), is("おいしい水"));
         assertThat(waterFromMap.getPrice(), is(100));
+        assertThat(storage.getStock(waterFromMap.getNum()), is(0));
     }
 
     /**
@@ -55,6 +82,7 @@ public class StorageTest {
         assertThat(sodaFromMap.getNum(), is(2));
         assertThat(sodaFromMap.getName(), is("サイコソーダ"));
         assertThat(sodaFromMap.getPrice(), is(150));
+        assertThat(storage.getStock(sodaFromMap.getNum()), is(0));
 
     }
 
@@ -73,6 +101,7 @@ public class StorageTest {
         assertThat(mixFromMap.getNum(), is(3));
         assertThat(mixFromMap.getName(), is("ミックスオレ"));
         assertThat(mixFromMap.getPrice(), is(160));
+        assertThat(storage.getStock(mixFromMap.getNum()), is(0));
     }
 
     /**
