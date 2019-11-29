@@ -14,7 +14,7 @@ public class ProductTest {
     @Test
     public void testGetNum() {
         Product product = new Product(1, null, 0);
-        int result = product.getNum();
+        int result = product.getProductID();
         assertThat(result, is(1));
     }
 
