@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class UserInterface {
 
     int requestMoney = 0; // 希望金額
-    int requestProductNum = 0; // 商品番号
+    int requestProductID = 0; // 商品番号
 
     VendingMachine vm = new VendingMachine();
 
@@ -18,17 +18,17 @@ public class UserInterface {
         Product water = new Product(1, "おいしい水", 100);
         Product soda = new Product(2, "サイコソーダ", 150);
         Product mix = new Product(3, "ミックスオレ", 160);
-        vm.addProductInfo(water.getNum(), water);
-        vm.addProductInfo(soda.getNum(), soda);
-        vm.addProductInfo(mix.getNum(), mix);
+        vm.addProductInfo(water.getProductID(), water);
+        vm.addProductInfo(soda.getProductID(), soda);
+        vm.addProductInfo(mix.getProductID(), mix);
 
-        vm.chargeStock(water.getNum(), 12);
-        vm.chargeStock(soda.getNum(), 5);
-        vm.chargeStock(mix.getNum(), 1);
+        vm.chargeStock(water.getProductID(), 12);
+        vm.chargeStock(soda.getProductID(), 5);
+        vm.chargeStock(mix.getProductID(), 1);
     }
 
     // 初期画面を表示する
-    public void display() throws WrongProductNumberException {
+    public void display() throws WrongProductIdException {
         Product water = vm.getProduct(1);
         int waterStock = vm.getStock(1);
 
@@ -40,11 +40,12 @@ public class UserInterface {
 
         System.out.println("商品番号 / 商品名 / 単価 / 在庫");
         System.out.println();
+        System.out.println(water.getProductID() + " / " + water.getName() + " / " + water.getPrice() + "円 / 残り"
+                + waterStock + "本");
         System.out.println(
-                water.getNum() + " / " + water.getName() + " / " + water.getPrice() + "円 / 残り" + waterStock + "本");
-        System.out
-                .println(soda.getNum() + " / " + soda.getName() + " / " + soda.getPrice() + "円 / 残り" + sodaStock + "本");
-        System.out.println(mix.getNum() + " / " + mix.getName() + " / " + mix.getPrice() + "円 / 残り" + mixStock + "本");
+                soda.getProductID() + " / " + soda.getName() + " / " + soda.getPrice() + "円 / 残り" + sodaStock + "本");
+        System.out.println(
+                mix.getProductID() + " / " + mix.getName() + " / " + mix.getPrice() + "円 / 残り" + mixStock + "本");
         System.out.println();
         System.out.println("投入金額 [ " + vm.getDeposit() + " ]円");
         System.out.println();
@@ -58,7 +59,7 @@ public class UserInterface {
     }
 
     // 機能を呼び出す
-    public void callFunction() throws WrongProductNumberException {
+    public void callFunction() throws WrongProductIdException {
         System.out.print("input 機能番号>>");
 
         try {
@@ -82,9 +83,9 @@ public class UserInterface {
 
                     System.out.println("---[2]商品を購入する---");
                     System.out.println("商品番号を入力してください");
-                    System.out.println(water.getNum() + " / " + water.getName() + " / " + water.getPrice() + "円");
-                    System.out.println(soda.getNum() + " / " + soda.getName() + " / " + soda.getPrice() + "円");
-                    System.out.println(mix.getNum() + " / " + mix.getName() + " / " + mix.getPrice() + "円");
+                    System.out.println(water.getProductID() + " / " + water.getName() + " / " + water.getPrice() + "円");
+                    System.out.println(soda.getProductID() + " / " + soda.getName() + " / " + soda.getPrice() + "円");
+                    System.out.println(mix.getProductID() + " / " + mix.getName() + " / " + mix.getPrice() + "円");
 
                     inputProductNum();
                     break;
@@ -144,7 +145,7 @@ public class UserInterface {
                         System.out.println("[ " + requestMoney + " ]円を投入しました");
                         break;
                     } else {
-                        System.out.println("ERROR_02:投入できる金額の上限は" + Checker.maxOfDeposit + "円です");
+                        System.out.println("ERROR_02:投入できる金額の上限は" + Checker.MAX_DEPOSIT + "円です");
                         System.out.println("[ " + requestMoney + " ]円を返却しました");
                         break;
                     }
@@ -163,21 +164,21 @@ public class UserInterface {
     }
 
     // 購入したい商品の番号を入力する
-    public void inputProductNum() throws WrongProductNumberException {
+    public void inputProductNum() throws WrongProductIdException {
         System.out.print("input 購入したい商品の番号>>");
         try {
-            requestProductNum = sc.nextInt();
-            if (vm.storage.productInfoMap.containsKey(requestProductNum) == true) {
-                switch (vm.buyProduct(requestProductNum)) {
+            requestProductID = sc.nextInt();
+            if (vm.storage.productInfoMap.containsKey(requestProductID) == true) {
+                switch (vm.buyProduct(requestProductID)) {
                 case SUCCESS:
                     System.out.println("---お買い上げありがとうございます---");
-                    System.out.println(vm.storage.getProduct(requestProductNum).getName() + " を購入しました");
+                    System.out.println(vm.storage.getProduct(requestProductID).getName() + " を購入しました");
                     break;
-                case NOT_ENOUGH_MONEY:
+                case ERROR_NOT_ENOUGH_MONEY:
                     System.out.println("ERROR_05:投入金額が不足しています");
                     System.out.println("お金を投入してください");
                     break;
-                case ZERO_STOCK:
+                case ERROR_ZERO_STOCK:
                     System.out.println("ERROR_06:ご指定の商品は売り切れています");
                     break;
                 }

@@ -7,7 +7,7 @@ public class VendingMachine {
     Storage storage = new Storage();
 
     enum BuyResult {
-        SUCCESS, NOT_ENOUGH_MONEY, ZERO_STOCK
+        SUCCESS, ERROR_NOT_ENOUGH_MONEY, ERROR_ZERO_STOCK
     }
 
     // 投入金額のgetter
@@ -16,29 +16,29 @@ public class VendingMachine {
     }
 
     // 商品情報を追加する(商品情報のみ 在庫数はいったん0をセットする)
-    public void addProductInfo(Integer num, Product product) {
-        storage.addProductInfo(num, product);
+    public void addProductInfo(Integer productID, Product product) {
+        storage.addProductInfo(productID, product);
     }
 
     // 商品情報を追加する(第三引数で在庫数も指定すると、商品情報とともにセットする)
-    public void addProductInfo(Integer num, Product product, Integer stock) {
-        storage.addProductInfo(num, product, stock);
+    public void addProductInfo(Integer productID, Product product, Integer stock) {
+        storage.addProductInfo(productID, product, stock);
     }
 
     // 在庫を補充する
-    public void chargeStock(Integer num, Integer stock) {
-        storage.chargeStock(num, stock);
+    public void chargeStock(Integer productID, Integer stock) {
+        storage.chargeStock(productID, stock);
     }
 
     // 自販機.get在庫数
-    public int getStock(int num) throws WrongProductNumberException {
-        int stock = storage.getStock(num);
+    public int getStock(int productID) throws WrongProductIdException {
+        int stock = storage.getStock(productID);
         return stock;
     }
 
     // 自販機.get商品情報
-    public Product getProduct(int num) throws WrongProductNumberException {
-        Product product = storage.getProduct(num);
+    public Product getProduct(int productID) throws WrongProductIdException {
+        Product product = storage.getProduct(productID);
         return product;
     }
 
@@ -57,22 +57,22 @@ public class VendingMachine {
     }
 
     // 商品を購入する
-    public BuyResult buyProduct(int num) throws WrongProductNumberException {
-        if (storage.getStock(num) > 0) {
-            Product reserveProduct = storage.getProduct(num);
+    public BuyResult buyProduct(int productID) throws WrongProductIdException {
+        if (storage.getStock(productID) > 0) {
+            Product reserveProduct = storage.getProduct(productID);
             Checker affcheck = new Checker();
             boolean checkResult = affcheck.checkCanAfford(reserveProduct, getDeposit());
             if (checkResult == true) {
-                storage.reduceStock(num);
+                storage.reduceStock(productID);
                 deposit -= reserveProduct.getPrice();
                 return BuyResult.SUCCESS;
             } else {
                 // ("投入金額が不足しています");
-                return BuyResult.NOT_ENOUGH_MONEY;
+                return BuyResult.ERROR_NOT_ENOUGH_MONEY;
             }
         } else {
             // ("ご指定の商品は売り切れています");
-            return BuyResult.ZERO_STOCK;
+            return BuyResult.ERROR_ZERO_STOCK;
         }
     }
 

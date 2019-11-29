@@ -8,50 +8,44 @@ public class Storage {
     Map<Integer, Product> productInfoMap = new HashMap<Integer, Product>();
     Map<Integer, Integer> stockMap = new HashMap<Integer, Integer>();
 
-    // 商品情報を追加する(商品情報のみ 在庫数はいったん0をセットする)
-    public void addProductInfo(Integer num, Product product) {
-        productInfoMap.put(num, product);
-        stockMap.put(num, 0);
+    public void addProductInfo(Integer productID, Product product) {
+        productInfoMap.put(productID, product);
+        stockMap.put(productID, 0);
     }
 
-    // 商品情報を追加する(第三引数で在庫数も指定すると、商品情報とともにセットする)
-    public void addProductInfo(Integer num, Product product, Integer stock) {
-        productInfoMap.put(num, product);
-        stockMap.put(num, stock);
+    public void addProductInfo(Integer productID, Product product, Integer stock) {
+        productInfoMap.put(productID, product);
+        stockMap.put(productID, stock);
     }
 
-    // 在庫を補充する
-    public void chargeStock(Integer num, Integer stock) {
-        stockMap.put(num, stock);
+    public void chargeStock(Integer productID, Integer stock) {
+        stockMap.put(productID, stock);
     }
 
-    Product getProduct(int num) throws WrongProductNumberException {
-        if (productInfoMap.containsKey(num) == true) {
-            Product pr = productInfoMap.get(num);
-            return pr;
+    Product getProduct(int productID) throws WrongProductIdException {
+        if (productInfoMap.containsKey(productID) == true) {
+            return productInfoMap.get(productID);
         } else {
-            throw new WrongProductNumberException("存在しない商品番号がリクエストされています");
+            throw new WrongProductIdException("存在しない商品番号がリクエストされています");
         }
 
     }
 
-    int getStock(int num) throws WrongProductNumberException {
-        if (stockMap.containsKey(num) == true) {
-            int stock = stockMap.get(num);
-            return stock;
+    int getStock(int productID) throws WrongProductIdException {
+        if (stockMap.containsKey(productID) == true) {
+            return stockMap.get(productID);
         } else {
-            throw new WrongProductNumberException("存在しない商品番号がリクエストされています");
+            throw new WrongProductIdException("存在しない商品番号がリクエストされています");
         }
     }
 
-    // 在庫を1減らす
-    int reduceStock(int num) throws WrongProductNumberException {
-        if (stockMap.containsKey(num) == true) {
-            int afterReduce = getStock(num) - 1;
-            stockMap.put(num, afterReduce);
+    int reduceStock(int productID) throws WrongProductIdException {
+        if (stockMap.containsKey(productID) == true) {
+            int afterReduce = getStock(productID) - 1;
+            stockMap.put(productID, afterReduce);
             return afterReduce;
         } else {
-            throw new WrongProductNumberException("存在しない商品番号がリクエストされています");
+            throw new WrongProductIdException("存在しない商品番号がリクエストされています");
         }
     }
 

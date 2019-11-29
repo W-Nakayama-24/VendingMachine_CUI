@@ -54,11 +54,10 @@ public class CheckerTest {
     /**
      * 指定した商品がおいしい水(water)で、投入金額が100円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す
      *
-     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     * @throws WrongProductIdException 商品番号として存在していない整数を引数に渡すと発生
      */
-    @Test
-
-    public void isWaterAvairable() throws WrongProductNumberException {
+    @Test(expected = WrongProductIdException.class)
+    public void isWaterAvairable() throws WrongProductIdException {
         Checker affchecker = new Checker();
         Product water = new Product(1, "おいしい水", 100);
         boolean checkResult = affchecker.checkCanAfford(water, 100);
@@ -68,11 +67,11 @@ public class CheckerTest {
     /**
      * 指定した商品がおいしい水(water)で、投入金額が99円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す
      *
-     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     * @throws WrongProductIdException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
 
-    public void isNotWaterAvairable() throws WrongProductNumberException {
+    public void isNotWaterAvairable() throws WrongProductIdException {
         Checker affchecker = new Checker();
         Product water = new Product(1, "おいしい水", 100);
         boolean checkResult = affchecker.checkCanAfford(water, 100 - 1);
@@ -85,7 +84,7 @@ public class CheckerTest {
      *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
-    public void isSodaAvairable() throws WrongProductNumberException {
+    public void isSodaAvairable() throws WrongProductIdException {
         Checker affchecker = new Checker();
         Product soda = new Product(2, "サイコソーダ", 150);
         boolean checkResult = affchecker.checkCanAfford(soda, 150);
@@ -98,7 +97,7 @@ public class CheckerTest {
      *
      * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
      */
-    public void isNotSodaAvairable() throws WrongProductNumberException {
+    public void isNotSodaAvairable() throws WrongProductIdException {
         Checker affchecker = new Checker();
         Product soda = new Product(2, "サイコソーダ", 150);
         boolean checkResult = affchecker.checkCanAfford(soda, 150 - 1);
@@ -108,10 +107,10 @@ public class CheckerTest {
     /**
      * 指定した商品がミックスオレ(mix)で、投入金額が160円のとき 投入金額が単価と同じなので、チェッカーはtrueを返す
      *
-     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     * @throws WrongProductIdException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
-    public void isMixAulaitAvairable() throws WrongProductNumberException {
+    public void isMixAulaitAvairable() throws WrongProductIdException {
         Checker affchecker = new Checker();
         Product mix = new Product(3, "ミックスオレ", 160);
         boolean checkResult = affchecker.checkCanAfford(mix, 160);
@@ -121,10 +120,10 @@ public class CheckerTest {
     /**
      * 指定した商品がミックスオレ(mix)で、投入金額が159円のとき 投入金額が単価を下回るので、チェッカーはfalseを返す
      *
-     * @throws WrongProductNumberException 商品番号として存在していない整数を引数に渡すと発生
+     * @throws WrongProductIdException 商品番号として存在していない整数を引数に渡すと発生
      */
     @Test
-    public void isNotMixAulaitAvairable() throws WrongProductNumberException {
+    public void isNotMixAulaitAvairable() throws WrongProductIdException {
         Checker affchecker = new Checker();
         Product mix = new Product(3, "ミックスオレ", 160);
         boolean checkResult = affchecker.checkCanAfford(mix, 160 - 1);

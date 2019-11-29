@@ -12,7 +12,7 @@ public class Main {
                 ui.display();
                 ui.callFunction();
             }
-        } catch (WrongProductNumberException ex) {
+        } catch (WrongProductIdException ex) {
             System.out.println(ex.getMessage());
         } catch (RuntimeException ex) {
             System.out.println("予期せぬ例外が発生した為、システムを中断しました");
